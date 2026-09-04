@@ -13,7 +13,6 @@ class VlessUser:
             dic_t["flow"] = self.flow
         return dic_t
 
-
 class VmessUser:
     def __init__(self, id, alter_id = 0, security = "auto"):
         self.id = id

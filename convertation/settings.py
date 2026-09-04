@@ -1,5 +1,5 @@
-from .users import *
-from .servers import *
+from users import *
+from servers import *
 
 
 class VlessSettings:
