@@ -5,7 +5,7 @@ import emoji
 from urllib.parse import unquote
 
      
-LINK = '...'
+LINK = ''
 
 
 async def get_links():
