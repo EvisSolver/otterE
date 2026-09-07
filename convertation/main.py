@@ -1,11 +1,11 @@
 import asyncio
 import base64, requests
-import emoji
+import emoji, os
 
 from urllib.parse import unquote
 
      
-LINK = ''
+LINK = '...'
 
 
 async def get_links():
@@ -64,9 +64,14 @@ async def get_clean_link():
         print(found)
 
 async def get_dirty_json(): #TODO
-    server_ = await get_links()
+    '''
+        getting dirty_json to make clean_json(for xray run -c)
+    '''
+    clean_link, flag = await get_clean_link()
+    print(f"server picked: {flag}")
+    dirty_json = os.system(f"cd ~/xra_y_theta/xra_y_link/Xray-Link-Json && ./Xray-Link-Json '{clean_link}'")
 
-    
+    return dirty_json
 
 async def main(): #TODO
     print(await get_links())
@@ -74,8 +79,8 @@ async def main(): #TODO
 
 asyncio.run(main())
 
-#need to fix: link_converter
-#(xray_core is doesn't running with a dirty-link/links)
-#dirty_link => bad_json => xray is cant run(he's crushing)
+# need to fix: link_converter
+#(xray_core is doesn't running with a dirty-link/links) | MOGGED
+#dirty_link => bad_json => xray is cant run(he's crushing) | NOT MOGGED
 
 #requirements.txt in the future btw i still using old venv with cuda lol
