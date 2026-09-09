@@ -1,11 +1,11 @@
 import asyncio
 import base64, requests
-import emoji, os
+import emoji, json
+import os, subprocess
 
+from link import LINK
 from urllib.parse import unquote
-
-     
-LINK = '...'
+from pystyle import Colors, Write
 
 
 async def emoji_founder(name: str, link: str, text: str) -> tuple[str, str, str]:
@@ -27,11 +27,11 @@ async def emoji_founder(name: str, link: str, text: str) -> tuple[str, str, str]
     if emoji_list:
         found_emoji = emoji_list[0]["emoji"]
         
-        return f"{found_emoji} | {name} | {link}"
+        return found_emoji, name, link
     return "unknown symbol/emoji"
 
 
-async def get_links() -> tuple[dict[str, str], str]:
+async def get_links() -> dict[str]:
     '''
     decoding sub-LINK
     counting servers
@@ -46,20 +46,19 @@ async def get_links() -> tuple[dict[str, str], str]:
     decoded_text = decoded_bytes.decode("utf-8")
     servers = decoded_text.splitlines()
 
-    count_servers = 0
+    total_servers = 0
 
     for server in servers:
         servers_list.append(server)
         if "://" in servers_list[0]:
-            count_servers += 1
+            total_servers += 1
 
-            # result = [
-            #     [server] for _ in range(count_servers)
-            # ]
             name_flag = unquote(server.split("#")[1]).strip() if "#" in server else "unknown"#  режем ссылку(берем из нее раскодируемый флаг в закодированной строке(после #))
             name = emoji.replace_emoji(name_flag, replace = "").strip()
-            server_[f"Server: {count_servers}"] = {"name": name, "flag": name_flag, "link": server.split("#", 1)[0], "clean_link": server.split("#", 1)[0]}
-    return server_, name_flag
+
+            server_[f"Server: {total_servers}"] = {"name": name, "flag": name_flag, "link": server.split("#", 1)[0], "clean_link": server.split("#", 1)[0]}#    убираем с ссылки #%F0%9F...
+    Write.Print(f"\ntotal_servers: {total_servers}\n\n", Colors.green, interval = 0)
+    return server_, total_servers
 
 
 async def put_dirty_link(text: str) -> tuple[str, list[str]]:
@@ -75,36 +74,60 @@ async def put_dirty_link(text: str) -> tuple[str, list[str]]:
     return clean_link, found_emoji
 
 
-async def get_clean_link() -> None:
+async def get_clean_link(server_links) -> dict[all[str]]:
     '''
         decoding link(removing emoji-flag)
     '''
-
-    server_links, name_flag = await get_links()
-
-    for _, server in server_links.items():
-        result = await emoji_founder(server["name"], server["link"], server["flag"])
-        if result:
-            print(result)
-    # for link in decoded_link:
-    #     clean, found = await put_dirty_link(link)
-    #     print(clean)
-    #     print(found)
+    clean_servers_list = []
+    server_id = 0
+    
+    for server_idx, server in server_links.items():
+        emoji_, name, link = await emoji_founder(server["name"], server["link"], server["flag"])
 
 
-async def get_dirty_json() -> str:#DONE
+        server_id += 1
+        clean_link_dict = {
+            "server_id": server_id,
+            "flag": emoji_,
+            "server_name": name,
+            "server_link": link
+        }
+        clean_servers_list.append(clean_link_dict)
+    Write.Print(json.dumps(clean_servers_list, ensure_ascii=False, indent=2), Colors.purple, interval = 0)
+    print("\n\n")
+    return clean_servers_list
+
+
+
+async def get_dirty_json(clean_link_list, total_servers) -> str:#DONE
     '''
         getting dirty_json to make clean_json(for xray run -c)
     '''
-    clean_link, flag = await get_clean_link()
-    print(f"server picked: {flag}")
-    dirty_json = os.system(f"cd ~/xra_y_theta/xra_y_link/Xray-Link-Json && ./Xray-Link-Json '{clean_link}'")
 
-    return dirty_json
+    for clean_link in clean_link_list[0:total_servers + 1]:
+        Write.Print(f"\n{'NEXT SERVER':>67}\n", Colors.blue_to_green, interval = 0)
+        print(f"\n{'=' * 150}\n")
+        Write.Print(f"""\n
+        server  | {clean_link["server_id"]}
+        region  | {clean_link['flag']}
+        name    | {clean_link['server_name']}
+        \n""", Colors.yellow, interval = 0)
+
+        command_for_dirty_json = f"cd ~/xra_y_theta/xra_y_link/Xray-Link-Json && ./Xray-Link-Json '{clean_link['server_link']}'"
+        result_for_dirty_json = subprocess.run(
+            command_for_dirty_json,
+            shell = True, capture_output = True, text = True
+        )
+        full_output_for_dirty_json = result_for_dirty_json.stdout
+
+        Write.Print(full_output_for_dirty_json, Colors.blue, interval = 0)
+        print(f"\n{'=' * 150}")
 
 
-async def main(): #TODO
-    await get_clean_link()
+async def main():
+    server_links, total_servers = await get_links()
+    clean_link_list = await get_clean_link(server_links)
+    await get_dirty_json(clean_link_list, total_servers)
 
 asyncio.run(main())
 
