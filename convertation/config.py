@@ -1,8 +1,9 @@
 # ROADMAP: получаю чистые ссылки => забрасываю в Xray-Link-Json => обрабатываю полученный json, превращая ее в работающий => xray run -c "...".json
-import json
+import json, asyncio#TODO
+from main import get_dirty_json
 
 
-clear_json = "s.json"#TODO
+clear_json = "Germany.json"#TODO
 
 with open(
     clear_json,
