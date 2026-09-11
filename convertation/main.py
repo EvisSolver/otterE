@@ -139,6 +139,4 @@ async def main():
     clean_link_list = await get_clean_link(server_links)
     await get_dirty_json(clean_link_list, total_servers)
 
-asyncio.run(main())
-
 #requirements.txt in the future btw i still using old venv with the cuda lol
