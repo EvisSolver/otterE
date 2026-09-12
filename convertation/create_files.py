@@ -134,6 +134,8 @@ async def pick(clean_server_links, total_servers) -> None:
             elif inp.lower().strip() == "exit" or inp == KeyboardInterrupt:
                 Write.Print("bye <3", Colors.pink, interval = 0)
                 sys.exit()
+            elif inp.lower().strip() == "clear":
+                os.system("clear")
             else: 
                 rand_sec = random.uniform(alpha, 0.3)
                 Write.Print("only int(numbers 1....inf server)", Colors.red, interval = 0.05)
