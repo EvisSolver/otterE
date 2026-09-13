@@ -115,6 +115,14 @@ async def get_dirty_json(clean_link_list: list, total_servers: int) -> list:#DON
 
     #Write.Print(dirty_jsons, Colors.green, interval = 0)
     return dirty_jsons
+
+
+#TODO PLAN:
+
+#make the good structure
+#resolve the issue with the modules
+
+# also
 #ПЕРЕДЕЛАТЬ: 
 # ПРАВИЛЬНО: программа не ждет, а переключается на другой сервер
 # process = await asyncio.create_subprocess_shell(
@@ -133,6 +141,8 @@ async def get_dirty_json(clean_link_list: list, total_servers: int) -> list:#DON
 # Для Xray-чекеров обязательно нужно ставить ограничение (лимит), например, обрабатывать максимум по 20–30 серверов одновременно:
 #также в obsidian написано
 #   +доделать get_clear_json(сделать или в config.py подумать посидеть)
+
+
 
 async def main():
     server_links, total_servers = await get_links()
