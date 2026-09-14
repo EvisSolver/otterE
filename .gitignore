@@ -4,3 +4,4 @@ __pycache__/
 *.json
 link.py
 test/
+settings.py

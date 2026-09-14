@@ -110,7 +110,7 @@ async def pick(clean_server_links, total_servers) -> None:
                 - next: just formatting-logic and variants of exits
         
     '''
-    rand_sec = random.uniform(alpha, 0.3)
+    rand_sec = random.uniform(alpha, 0.05)
     try:
         while True:
             await start(clean_server_links, total_servers)
