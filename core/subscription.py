@@ -1,4 +1,4 @@
-import requests, base64, emoji, asyncio
+import requests, base64, emoji
 from urllib.parse import unquote
 
 from emoji_founder import get_emoji
