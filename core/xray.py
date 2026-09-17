@@ -1,14 +1,18 @@
 import subprocess, json
 from pystyle import Colors, Write
 
-from settings import path_to_xray_link
+from .settings import path_to_xray_link
 
 
 async def get_dirty_json(clean_link_list: list, total_servers: int) -> list:
+    '''
+        getting dirty_json to make clean_json(for xray run -c)
+    '''
+
     dirty_jsons = []
 
     for clean_link in clean_link_list[0:total_servers + 1]:
-        Write.Print(f"\n{'=' * 150}\n")
+        Write.Print(f"\n{'=' * 150}\n", Colors.blue, interval = 0)
         Write.Print(f"""
         
         server  | {clean_link['server_id']}
@@ -28,6 +32,10 @@ async def get_dirty_json(clean_link_list: list, total_servers: int) -> list:
 
 
 async def get_clean_json(server_name) -> dict:
+    '''
+        making dirty_json to clean_json with adding work-parameters(config) in .json
+    '''
+    
     clean_json = f"{server_name}.json"
 
     with open(
@@ -43,6 +51,13 @@ async def get_clean_json(server_name) -> dict:
 
             "settings": {"udp": True},
             "tag": "socks-in"
+        },
+        {
+        "listen": "127.0.0.1", 
+        "port": 10809,
+        "protocol": "http",
+        "settings": {},
+        "tag": "http-in"
         }
     ]
 
@@ -51,7 +66,6 @@ async def get_clean_json(server_name) -> dict:
     with open(
         clean_json, "w", encoding = "utf-8"
     ) as file:
-        result = json.load(file)
-
-    return result
+        json.dump(json_config, file, ensure_ascii = False, indent = 2) 
+    return json_config
 

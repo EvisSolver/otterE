@@ -1,11 +1,17 @@
 import requests, base64, emoji
 from urllib.parse import unquote
 
-from emoji_founder import get_emoji
-from settings import LINK
+from .emoji_founder import get_emoji
+from .settings import LINK
 
 
 async def get_links() -> tuple[dict[str], str]:
+    '''
+        decoding sub-LINK
+        counting servers
+        splitting to n lists and returning the dict
+    '''
+
     servers_list = []
     server_ = {}
 
@@ -18,11 +24,12 @@ async def get_links() -> tuple[dict[str], str]:
 
     for server in servers:
         servers_list.append(server)
-        if "://" in servers_list:
+        if "://" in server:
             total_servers += 1
 
             name_flag = unquote(server.split("#")[1]).strip() if "#" in server else "unknown"
             name = emoji.replace_emoji(name_flag, replace = "").strip()
+            if " " in name: name = name.replace(" ", "_")
 
             server_[total_servers] = {
                 "name": name,
@@ -34,6 +41,10 @@ async def get_links() -> tuple[dict[str], str]:
 
 
 async def get_clean_link(server_links: dict) -> dict[all[str]]:
+    '''
+        decoding link(removing emoji-flag)
+    '''
+
     clean_servers_list = []
     server_id = 0
 
