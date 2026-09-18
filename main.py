@@ -1,4 +1,4 @@
-import asyncio, os
+import asyncio, os, sys
 
 from core import settings, subscription, xray, storage
 from ui import console, picker

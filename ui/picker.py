@@ -36,7 +36,7 @@ async def pick(clean_server_links, total_servers) -> None:
             await start(clean_server_links, total_servers)
             inp = await get_user_input("\npick server(ID) |>", rand_sec)
             if inp != "" and inp != "0" and inp.isdigit():
-                os.system("clear")
+                os.system('cls' if os.name == 'nt' else 'clear')
                 inp_int = int(inp)
 
                 for pick_num in range(total_servers):
@@ -51,7 +51,7 @@ async def pick(clean_server_links, total_servers) -> None:
                 Write.Print("bye <3", Colors.pink, interval = 0)
                 sys.exit()
             elif inp.lower().strip() == "clear":
-                os.system("clear")
+                os.system('cls' if os.name == 'nt' else 'clear')
 
             else:
                 rand_sec = random.uniform(alpha, 0.3)

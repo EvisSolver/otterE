@@ -64,6 +64,6 @@ async def get_clean_link(server_links: dict) -> dict[all[str]]:
             "server_link": link
         }
         clean_servers_list.append(clean_servers_dict)
-
+        print(clean_servers_dict["server_link"])
     print("\n\n")
     return clean_servers_list
