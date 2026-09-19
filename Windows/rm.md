@@ -1,0 +1,16 @@
+#ROADMAP_TO_PROXY_APP
+
+## Optimize code to working with a lot servers
+    - process = await asynci.create_subprocess_shell(command, stdout = asynci.subprocess.PIPE)
+    
+    - async-requests(aiohttp)
+    - task-limiter(asyncio.Semaphore)
+
+## Windows Support
+    - need to all modules works stability in main dir(change "~/" on "home/")
+    - docker
+    - requirements.txt(to it downloaded all necessary-library's)
+
+## MVP GUI
+    - QT6 how to works
+    - design
