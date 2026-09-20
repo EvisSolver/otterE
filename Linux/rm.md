@@ -13,4 +13,5 @@
 
 ## MVP GUI
     - QT6 how to works
+    - Layout #DONE
     - design
