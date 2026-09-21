@@ -1,8 +1,10 @@
 import requests, base64, emoji
+from pystyle import Colors, Write
 from urllib.parse import unquote
 
 from .emoji_founder import get_emoji
 from .settings import LINK
+from .x_hwid import HEADERS
 
 
 async def get_links() -> tuple[dict[str], str]:
@@ -15,7 +17,12 @@ async def get_links() -> tuple[dict[str], str]:
     servers_list = []
     server_ = {}
 
-    response = requests.get(LINK)
+    response = requests.get(LINK, headers = HEADERS)
+    server_headers = response.headers
+    has_limit = response.headers.get("X-Hwid-Active") == "true"
+    is_full = response.headers.get("X-Hwid-Max-Devices-Reached") == "true"
+
+    Write.Print(f"SERVER_HEADERS: {server_headers}\nHAVE LIMIT: {has_limit}\nSUB NOT WORKS(LIMIT REACHED): {is_full}\n\n", Colors.green, interval = 0)
     decoded_bytes = base64.b64decode(response.text)
     decoded_text = decoded_bytes.decode("utf-8")
     servers = decoded_text.splitlines()

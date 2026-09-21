@@ -22,4 +22,4 @@ async def get_emoji(name: str, link: str, text: str) -> tuple[str, str, str]:
         found_emoji = emoji_list[0]["emoji"]
 
         return found_emoji, name, link
-    return "unknown symbol/emoji"
+    return "unknown symbol/emoji", name, link
