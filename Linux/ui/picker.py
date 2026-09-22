@@ -1,4 +1,4 @@
-import random, os, sys, keyboard, time
+import random, os, sys
 from scipy.constants import alpha
 
 from core import settings
@@ -39,13 +39,15 @@ async def pick(clean_server_links, total_servers) -> None:
                 os.system('cls' if os.name == 'nt' else 'clear')
                 inp_int = int(inp)
 
-                for pick_num in range(total_servers):
-                    if pick_num == inp_int - 1:
-                        if pick_num < len(clean_server_links):
-                            server = clean_server_links[pick_num]
-                            os.system(f"xray run -c {settings.path_to_jsons}{server['server_name']}.json")
-                            server_found = True#TODO в другом месте должно быть
-                            break
+                if 0 <= (inp_int - 1) < len(clean_server_links):
+                    server = clean_server_links[inp_int - 1]
+                    os.system(f"xray run -c {settings.path_to_jsons}{server['server_name']}.json")
+                    server_found = True#TODO в другом месте должно быть
+                    break
+
+                else:
+                    Write.Print(f"\nError: Server with ID {inp_int} NOT EXIST! | Your sub has only: 1-{total_servers} servers\n", Colors.red, interval = 0)
+                    continue
 
             elif inp.lower().strip() == "exit":
                 Write.Print("bye <3", Colors.pink, interval = 0)
