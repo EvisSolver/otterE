@@ -38,7 +38,7 @@ async def pick(clean_server_links, total_servers) -> None:
             if inp != "" and inp != "0" and inp.isdigit():
                 os.system('cls' if os.name == 'nt' else 'clear')
                 inp_int = int(inp)
-
+                # для сокращении кода можно не писать 2 раза inp_inp - 1, а сразу сделать выше inp_int = int(inp - 1) тк индексы начинаются с 0 и мы исключительно выбираем только по ним
                 if 0 <= (inp_int - 1) < len(clean_server_links):
                     server = clean_server_links[inp_int - 1]
                     os.system(f"xray run -c {settings.path_to_jsons}{server['server_name']}.json")

@@ -38,6 +38,5 @@ async def create_file(clean_link_list: list, servers_parameters: dict, total_ser
             json.dump(data, file, ensure_ascii = False, indent = 2)
 
         await asyncio.sleep(0.1)
-        await get_clean_json(f"{path_to_jsons}{clean_link['server_name']}")
 
     return clean_link_list, total_servers

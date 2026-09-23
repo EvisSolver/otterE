@@ -1,7 +1,9 @@
 import subprocess, json
+
+from pathlib import Path
 from pystyle import Colors, Write
 
-from .settings import path_to_xray_link
+from .settings import path_to_xray_link, path_to_jsons
 
 
 async def get_dirty_json(clean_link_list: list, total_servers: int) -> list:
@@ -31,41 +33,31 @@ async def get_dirty_json(clean_link_list: list, total_servers: int) -> list:
     return dirty_jsons
 
 
-async def get_clean_json(server_name) -> dict:
+async def get_clean_json() -> list[dict]:
     '''
-        making dirty_json to clean_json with adding work-parameters(config) in .json
+        дописывает inbounds / sendThrough во ВСЕ jsons/*.json
     '''
-    
-    clean_json = f"{server_name}.json"
-
-    with open(
-        clean_json,
-        encoding = "utf-8"
-    ) as file:
-        json_config = json.load(file)
-
-    json_config["inbounds"] = [
-        {
-            "listen": "127.0.0.1", "port": 10808,
-            "protocol": "socks",
-
-            "settings": {"udp": True},
-            "tag": "socks-in"
-        },
-        {
-        "listen": "127.0.0.1", 
-        "port": 10809,
-        "protocol": "http",
-        "settings": {},
-        "tag": "http-in"
-        }
+    inbounds = [
+        {"listen": "127.0.0.1", "port": 10808, "protocol": "socks",
+         "settings": {"udp": True}, "tag": "socks-in"},
+        {"listen": "127.0.0.1", "port": 10809, "protocol": "http",
+         "settings": {}, "tag": "http-in"},
     ]
 
-    json_config["outbounds"][0]["sendThrough"] = "0.0.0.0"
+    configs = []
+    for clean_json in Path(path_to_jsons).glob("*.json"):
+        try:
+            json_config = json.loads(clean_json.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            Write.Print(f"\n[skip] {clean_json.name}: невалидный json\n", Colors.red, interval=0)
+            continue
 
-    with open(
-        clean_json, "w", encoding = "utf-8"
-    ) as file:
-        json.dump(json_config, file, ensure_ascii = False, indent = 2) 
-    return json_config
+        json_config["inbounds"] = inbounds
+        json_config["outbounds"][0]["sendThrough"] = "0.0.0.0"
 
+        clean_json.write_text(
+            json.dumps(json_config, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+        configs.append(json_config)
+
+    return configs
