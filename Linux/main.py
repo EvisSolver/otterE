@@ -6,7 +6,7 @@ from pathlib import Path
 from core import settings, subscription, xray, storage
 from ui import console, picker
 
-from test.main import main as gui_main
+from gui_.gui_main import main as gui_main
 
 
 async def app_main():

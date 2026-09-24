@@ -1,0 +1,79 @@
+* {
+    font-family: "DejaVu Sans Mono";
+    font-size: 16px;
+    color: #3f12c7;
+}
+
+QMainWindow {
+    background-color: #150130;
+}
+
+QWidget#centralwidget {
+    background-color: #150130;
+    border: none;
+}
+
+QFrame#header {
+    background-color: #150130;
+    border: 3px solid #2d1180;
+}
+
+QLabel#titleLabel {
+    border: 3px solid #2d1180;
+    padding: 4px;
+}
+
+QToolButton#gearButton,
+QPushButton#closeButton {
+    border: 3px solid #2d1180;
+    border-radius: 0px;
+    background: #000000;
+}
+
+QFrame#serverPanel {
+    border: 3px solid #2d1180;
+    background-color: #150130;
+}
+
+QLabel#selected_server_label {
+    border: 3px solid #2d1180;
+    border-radius: 15px;
+    padding: 3px;
+    background: #080118;
+}
+
+QListWidget#server_list {
+    border: 3px solid #2d1180;
+    background-color: #000000;
+}
+
+QListWidget#server_list::item {
+    min-height: 27px;
+    border-bottom: 3px solid #2d1180;
+}
+
+QListWidget#server_list::item:selected {
+    background-color: #1b0a29;
+}
+
+QFrame#toggleFrame {
+    border: 3px solid #1e17ae;
+    border-radius: 20px;
+    background: #0f000e;
+}
+
+QPushButton#onButton,
+QPushButton#offButton {
+    border: none;
+    background-color: #000000;
+    min-height: 64px;
+}
+
+QPushButton#onButton {
+    border-right: 3px solid #2d1180;
+    background-color: #000000;
+}
+
+
+
+
