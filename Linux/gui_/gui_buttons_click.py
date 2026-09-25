@@ -19,6 +19,7 @@ class Buttons_Click(Buttons_Connect):
     def __init__(self, server_links, total_servers):
         super().__init__(server_links, total_servers)
 
+#MAIN MENU
     def on_click(self):
 
         current_server = self.ui.server_list.currentItem()
@@ -43,18 +44,25 @@ class Buttons_Click(Buttons_Connect):
 
         self.set_border_state("#C10404")
 
+
+#SETTINGS
+    def setting_clicked(self, item):
+        if item.text() == "Theme":
+            self.settings_window.ui.infoLabel.setText("here u can change ur theme for comfortably")
+
     def open_settings(self):
         if self.settings_window is None:
             self.settings_window = SettingsWindow()
 
         self.settings_window.show()
-        self.settings_window.raise_()
-        self.settings_window.activateWindow()
-
         self.settings_window.move(
             self.x() + self.width() + 10,
             self.y()
         )
+
+        self.settings_window.ui.settingsList.itemClicked.connect(self.setting_clicked)
+        
+
 
     def set_border_state(self, color):
 

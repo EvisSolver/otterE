@@ -9,6 +9,7 @@ class Buttons_Connect(UI):
         self.connect_signals()
 
     def connect_signals(self):
+        #GUI
         self.ui.closeButton.clicked.connect(self.close)
         self.ui.gearButton.clicked.connect(self.open_settings)
 
