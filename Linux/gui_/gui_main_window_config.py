@@ -6,7 +6,8 @@ from PySide6.QtWidgets import QMainWindow
 
 
 class UI(QMainWindow):
-    def __init__(self, server_links, total_servers):
+    def __init__(self, server_links: list[all[dict]], total_servers: int):
+        '''assign the class and inherit all the classes'''
         super().__init__()
 
         self.server_links = server_links
@@ -31,6 +32,7 @@ class UI(QMainWindow):
         print(f"servers added: {self.total_servers}")
 
     def ui_config(self):
+        '''MAIN-GUI CONFIG'''
         ui = self.ui
 
         ui.horizontalLayout.setContentsMargins(0, 0, 0, 0)

@@ -6,7 +6,7 @@ from pystyle import Colors, Write
 from .settings import path_to_xray_link, path_to_jsons
 
 
-async def get_dirty_json(clean_link_list: list, total_servers: int) -> list:
+async def get_dirty_json(clean_link_list: list[all[dict]], total_servers: int) -> list:
     '''
         getting dirty_json to make clean_json(for xray run -c)
     '''
@@ -33,7 +33,7 @@ async def get_dirty_json(clean_link_list: list, total_servers: int) -> list:
     return dirty_jsons
 
 
-async def get_clean_json() -> list[dict]:
+async def get_clean_json() -> list[all[dict]]:
     '''
         дописывает inbounds / sendThrough во ВСЕ jsons/*.json
     '''

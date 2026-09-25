@@ -5,7 +5,8 @@ from PySide6.QtWidgets import QApplication
 from .gui_buttons_click import Buttons_Click
 
 
-def main(server_links, total_servers):
+def main(server_links: list[all[dict]], total_servers: int):
+    '''main gui-app'''
     app = QApplication.instance() or QApplication(sys.argv)
 
     style_path = Path(__file__).with_name("style.qss")
