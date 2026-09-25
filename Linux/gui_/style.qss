@@ -102,3 +102,8 @@ QListWidget#settingsList::item {
     min-height: 35px;
     border-bottom: 3px solid #8b1111;
 }
+
+QWidget#SettingsForm {
+    background-color: #0d011d;
+    border: 3px solid #8b1111;
+}
