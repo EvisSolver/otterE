@@ -36,7 +36,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>201</width>
+         <width>221</width>
          <height>441</height>
         </rect>
        </property>
@@ -44,30 +44,23 @@
         <string>$INFO</string>
        </property>
       </widget>
-      <widget class="QListWidget" name="settingsList">
+      <widget class="QTreeWidget" name="settingsList">
        <property name="geometry">
         <rect>
-         <x>220</x>
-         <y>0</y>
-         <width>161</width>
+         <x>240</x>
+         <y>1</y>
+         <width>141</width>
          <height>461</height>
         </rect>
        </property>
-       <item>
+       <property name="headerHidden">
+        <bool>true</bool>
+       </property>
+       <column>
         <property name="text">
-         <string>Theme</string>
+         <string notr="true">1</string>
         </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Language</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>connect_proxy</string>
-        </property>
-       </item>
+       </column>
       </widget>
      </widget>
     </item>

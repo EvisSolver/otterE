@@ -32,7 +32,7 @@ QPushButton#closeButton {
 
 QFrame#serverPanel {
     border: 3px solid #2d1180;
-    background-color: #150130;
+    background-color: #0b0117;
 }
 
 QLabel#selected_server_label {
@@ -75,7 +75,6 @@ QPushButton#onButton {
 }
 
 
-
 /* SETTINGS */
 QWidget#SettingsForm {
     background-color: #0d011d;
@@ -92,18 +91,21 @@ QLabel#infoLabel {
     border: 3px solid #8b1111;
 }
 
-QListWidget#settingsList {
+
+QWidget#SettingsForm {
+    background-color: #0d011d;
+    border: 3px solid #8b1111;
+}
+
+QTreeWidget#settingsList {
+    padding: 0px;
     background-color: #0d011d;
     color: #8b1111;
     border: 3px solid #8b1111;
 }
 
-QListWidget#settingsList::item {
-    min-height: 35px;
+QTreeWidget#settingsList::item {
+    margin: 0px;
+    padding: 6px 8px;
     border-bottom: 3px solid #8b1111;
-}
-
-QWidget#SettingsForm {
-    background-color: #0d011d;
-    border: 3px solid #8b1111;
 }

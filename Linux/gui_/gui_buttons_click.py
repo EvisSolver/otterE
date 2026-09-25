@@ -1,6 +1,8 @@
 import subprocess, sys, random
 
-from PySide6.QtWidgets import QWidget
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QTreeWidgetItem
+
 from pathlib import Path
 
 from .settings_window import SettingsWindow
@@ -46,22 +48,47 @@ class Buttons_Click(Buttons_Connect):
 
 
 #SETTINGS
-    def setting_clicked(self, item):
-        if item.text() == "Theme":
-            self.settings_window.ui.infoLabel.setText("here u can change ur theme for comfortably")
 
     def open_settings(self):
         if self.settings_window is None:
             self.settings_window = SettingsWindow()
+
+            tree = self.settings_window.ui.settingsList
+            tree.setIndentation(0)
+            
+            tree.clear()
+            tree.setHeaderHidden(True)
+
+
+            language = QTreeWidgetItem(["Language"])
+            language.addChild(QTreeWidgetItem(["English"]))
+            language.addChild(QTreeWidgetItem(["Русский"]))
+            language.addChild(QTreeWidgetItem(["Deutsch"]))
+
+            theme = QTreeWidgetItem(["Theme"])
+            proxy = QTreeWidgetItem(["connect_proxy"])
+
+            tree.addTopLevelItem(theme)
+            tree.addTopLevelItem(language)
+            tree.addTopLevelItem(proxy)
+
+            tree.itemClicked.connect(self.setting_clicked)
 
         self.settings_window.show()
         self.settings_window.move(
             self.x() + self.width() + 10,
             self.y()
         )
+                
+    def setting_clicked(self, item, column):
+        text = item.text(0)
 
-        self.settings_window.ui.settingsList.itemClicked.connect(self.setting_clicked)
-        
+        if text == "Language" and item.parent() is None:
+            item.setExpanded(not item.isExpanded())
+
+        elif item.parent() is not None:
+            print("Выбран язык:", text)
+
 
 
     def set_border_state(self, color):
