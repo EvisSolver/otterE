@@ -3,7 +3,9 @@ import subprocess, sys, random
 from PySide6.QtWidgets import QWidget
 from pathlib import Path
 
+from .settings_window import SettingsWindow
 from .gui_buttons_connect import Buttons_Connect
+
 from pystyle import Colors, Write
 
 _HERE = Path(__file__).resolve().parent
@@ -41,8 +43,18 @@ class Buttons_Click(Buttons_Connect):
 
         self.set_border_state("#C10404")
 
-    def on_gearButton(self):
-        print("settings")#TODO
+    def open_settings(self):
+        if self.settings_window is None:
+            self.settings_window = SettingsWindow()
+
+        self.settings_window.show()
+        self.settings_window.raise_()
+        self.settings_window.activateWindow()
+
+        self.settings_window.move(
+            self.x() + self.width() + 10,
+            self.y()
+        )
 
     def set_border_state(self, color):
 

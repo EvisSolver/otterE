@@ -76,4 +76,29 @@ QPushButton#onButton {
 
 
 
+/* SETTINGS */
+QWidget#SettingsForm {
+    background-color: #0d011d;
+}
 
+QFrame#infoPanel {
+    background-color: #0d011d;
+    border: 3px solid #8b1111;
+}
+
+QLabel#infoLabel {
+    color: #8b1111;
+    font-size: 28px;
+    border: 3px solid #8b1111;
+}
+
+QListWidget#settingsList {
+    background-color: #0d011d;
+    color: #8b1111;
+    border: 3px solid #8b1111;
+}
+
+QListWidget#settingsList::item {
+    min-height: 35px;
+    border-bottom: 3px solid #8b1111;
+}

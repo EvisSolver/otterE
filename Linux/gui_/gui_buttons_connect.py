@@ -10,7 +10,7 @@ class Buttons_Connect(UI):
 
     def connect_signals(self):
         self.ui.closeButton.clicked.connect(self.close)
-        self.ui.gearButton.clicked.connect(self.on_gearButton)
+        self.ui.gearButton.clicked.connect(self.open_settings)
 
         self.ui.onButton.clicked.connect(self.on_click)
         self.ui.offButton.clicked.connect(self.off_click)

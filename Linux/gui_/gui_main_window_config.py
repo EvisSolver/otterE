@@ -1,6 +1,7 @@
 import random
 
 from .ui_for_gui import Ui_MainWindow
+
 from PySide6.QtWidgets import QMainWindow
 
 
@@ -13,11 +14,13 @@ class UI(QMainWindow):
 
         
         self.ui = Ui_MainWindow()
+        self.settings_window = None
+
         self.ui.setupUi(self)
         self.ui.server_list.clear()
 
         self.ui_config()
-
+        
         for self.server in self.server_links:
             self.flag = self.server["server_flag"]
             self.name = self.server["server_name"]
