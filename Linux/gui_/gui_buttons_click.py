@@ -42,7 +42,7 @@ class Buttons_Click(Buttons_Connect):
         self.set_border_state("#C10404")
 
     def on_gearButton(self):
-        print("settings")
+        print("settings")#TODO
 
     def set_border_state(self, color):
 
