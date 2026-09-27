@@ -1,9 +1,11 @@
 import requests, base64, emoji
+
+from . import settings
+
 from pystyle import Colors, Write
 from urllib.parse import unquote
 
 from .emoji_founder import get_emoji
-from .settings import LINK
 from .x_hwid import HEADERS
 
 
@@ -16,8 +18,19 @@ async def get_links() -> tuple[dict[str], str]:
 
     servers_list = []
     server_ = {}
+    with open(
+        settings.path_to_create_memory_file,
+        encoding="utf-8"
+    ) as file:
+        link = file.read().strip()
 
-    response = requests.get(LINK, headers = HEADERS)
+    if not link:
+        raise ValueError("Xray-Link-Json пустой")
+
+    response = requests.get(
+        link,
+        headers=HEADERS
+    )
     server_headers = response.headers
     has_limit = response.headers.get("X-Hwid-Active") == "true"
     is_full = response.headers.get("X-Hwid-Max-Devices-Reached") == "true"

@@ -1,9 +1,12 @@
-import subprocess, sys, fade
+import subprocess, sys, asyncio
 
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QTreeWidgetItem
 
 from pathlib import Path
+
+from core import settings, subscription, xray, storage
+from ui import console, picker
 
 from .settings_window import SettingsWindow
 from .gui_buttons_connect import Buttons_Connect
@@ -55,14 +58,24 @@ class Buttons_Click(Buttons_Connect):
 #GET_SUB_LINK_BUTTON
     @show_error
     def get_sub_link(self):
-        link = self.get_sub_window.ui.input_SubLink.text().strip()
+        settings.LINK = (
+            self.get_sub_window.ui.input_SubLink.text()
+        )
 
-        if not link:
-            raise ValueError("Put the link | NOT EMPTY-FORM")
-        if not link.startswith(("http://", "https://")):
-            raise ValueError("Wrong Link-form")
-        print("LINK:", link)
+        with open(
+            settings.path_to_xray_link,
+            "w",
+            encoding="utf-8"
+        ) as file:
+            file.write(settings.LINK)
 
+        server_links, total_servers = asyncio.run(subscription.get_links())
+        clean_list = asyncio.run(subscription.get_clean_link)
+
+        dirty_jsons = asyncio.run(xray.get_dirty_json(clean_list, total_servers))
+        clean_list, total_servers = asyncio.run(storage.create_file(clean_list, dirty_jsons, total_servers))
+
+        self.ui.server_list.clear()
 
 #SETTINGS
     def open_settings(self):
@@ -96,7 +109,7 @@ class Buttons_Click(Buttons_Connect):
         self.settings_window.move(
             self.x() + self.width() + 10,
             self.y()
-        )        
+        )
 
     def setting_clicked(self, item: str):
         text = item.text(0)
