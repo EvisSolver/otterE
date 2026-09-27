@@ -74,7 +74,9 @@ class Buttons_Click(Buttons_Connect):
         clean_list = asyncio.run(subscription.get_clean_link(server_links))
 
         dirty_jsons = asyncio.run(xray.get_dirty_json(clean_list, total_servers))
+
         clean_list, total_servers = asyncio.run(storage.create_file(clean_list, dirty_jsons, total_servers))
+        full_clean_jsons = asyncio.run(xray.get_clean_json())
 
         self.server_links = clean_list
         self.total_servers = total_servers
