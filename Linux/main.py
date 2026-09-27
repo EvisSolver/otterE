@@ -9,7 +9,7 @@ from ui import console, picker
 from gui_.gui_main import main as gui_main
 
 
-async def app_main():
+def app_main():
 
     os.makedirs(settings.path_to_jsons, exist_ok=True)
     return gui_main([], 0)
@@ -19,4 +19,4 @@ async def app_main():
 
 
 if __name__ == "__main__":
-    sys.exit(asyncio.run(app_main()))
+    sys.exit(app_main())

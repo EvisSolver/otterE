@@ -25,6 +25,7 @@ class Buttons_Click(Buttons_Connect):
     '''Button-click logic + design params(49:98)'''
     def __init__(self, server_links: list[all[dict]], total_servers: int):
         super().__init__(server_links, total_servers)
+        self.process = None
 
 #MAIN MENU
     def on_click(self):
@@ -63,19 +64,30 @@ class Buttons_Click(Buttons_Connect):
         )
 
         with open(
-            settings.path_to_xray_link,
+            settings.path_to_create_memory_file,
             "w",
             encoding="utf-8"
         ) as file:
             file.write(settings.LINK)
 
         server_links, total_servers = asyncio.run(subscription.get_links())
-        clean_list = asyncio.run(subscription.get_clean_link)
+        clean_list = asyncio.run(subscription.get_clean_link(server_links))
 
         dirty_jsons = asyncio.run(xray.get_dirty_json(clean_list, total_servers))
         clean_list, total_servers = asyncio.run(storage.create_file(clean_list, dirty_jsons, total_servers))
 
+        self.server_links = clean_list
+        self.total_servers = total_servers
+        
         self.ui.server_list.clear()
+
+        for self.server in self.server_links:
+             self.flag = self.server["server_flag"]
+             self.name = self.server["server_name"]
+
+             print(self.flag, self.name)
+             self.ui.server_list.addItem(f"{self.flag} | {self.name}")
+
 
 #SETTINGS
     def open_settings(self):
