@@ -22,15 +22,6 @@ class UI(QMainWindow):
         self.ui.server_list.clear()
 
         self.ui_config()
-        
-        for self.server in self.server_links:
-            self.flag = self.server["server_flag"]
-            self.name = self.server["server_name"]
-
-            print(self.flag, self.name)
-            self.ui.server_list.addItem(f"{self.flag} | {self.name}")
-
-        print(f"servers added: {self.total_servers}")
 
     def ui_config(self):
         '''MAIN-GUI CONFIG'''

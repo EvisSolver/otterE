@@ -108,7 +108,7 @@ class Buttons_Click(Buttons_Connect):
             language = QTreeWidgetItem(["Language"])
             language.addChild(QTreeWidgetItem(["English"]))
             language.addChild(QTreeWidgetItem(["Русский"]))
-            language.addChild(QTreeWidgetItem(["Deutsch"]))
+            language.addChild(QTreeWidgetItem(["Ukraine"]))
 
             theme = QTreeWidgetItem(["Theme"])
             proxy = QTreeWidgetItem(["SubLink"])

@@ -75,6 +75,7 @@ QPushButton#onButton {
 }
 
 
+
 /* SETTINGS */
 QWidget#SettingsForm {
     background-color: #0d011d;
@@ -108,4 +109,42 @@ QTreeWidget#settingsList::item {
     margin: 0px;
     padding: 6px 8px;
     border-bottom: 3px solid #8b1111;
+}
+
+
+
+/* SubLink-QWidget-button */
+QWidget#GetSubWindow {
+    background-color: #0d011d;
+    border: 2px solid #8b1111;
+}
+
+QFrame#frame {
+    background-color: #0d011d;
+    border: 2px solid #8b1111;
+}
+
+QLineEdit#input_SubLink {
+    background-color: #160b25;
+    color: #f0dbe0;
+    border: 2px solid #8b1111;
+    padding: 4px 8px;
+    selection-background-color: #522044;
+}
+
+QPushButton#button_get_sub {
+    background-color: #180d28;
+    color: #e7cdd3;
+    border: 2px solid #8b1111;
+    padding: 4px;
+}
+
+QPushButton#button_get_sub:hover {
+    background-color: #2b1638;
+    border-color: #20a050;
+}
+
+QPushButton#button_get_sub:pressed {
+    background-color: #20a050;
+    color: #0d011d;
 }
