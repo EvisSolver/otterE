@@ -111,6 +111,8 @@ class Buttons_Click(Buttons_Connect):
         if text == "Theme" and item.parent() is None:
             self.settings_window.ui.infoLabel.setText('changing the "Theme" for your comfortable')
 
+        if text == "SubLink":
+            
 
 
 
