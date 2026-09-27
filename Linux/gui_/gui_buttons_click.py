@@ -7,6 +7,7 @@ from pathlib import Path
 
 from .settings_window import SettingsWindow
 from .gui_buttons_connect import Buttons_Connect
+from .get_sub_window import GetSubWindow
 
 from pystyle import Colors, Write
 
@@ -112,8 +113,11 @@ class Buttons_Click(Buttons_Connect):
             self.settings_window.ui.infoLabel.setText('changing the "Theme" for your comfortable')
 
         if text == "SubLink":
-            
-
+            if self.get_sub_window is None:
+                self.get_sub_window = GetSubWindow()
+            self.get_sub_window.show()
+            self.get_sub_window.raise_()
+            self.get_sub_window.activateWindow()
 
 
     def set_border_state(self, color: Colors):

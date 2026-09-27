@@ -16,6 +16,7 @@ class UI(QMainWindow):
         
         self.ui = Ui_MainWindow()
         self.settings_window = None
+        self.get_sub_window = None
 
         self.ui.setupUi(self)
         self.ui.server_list.clear()
