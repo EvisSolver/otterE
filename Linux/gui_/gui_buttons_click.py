@@ -8,6 +8,7 @@ from pathlib import Path
 from .settings_window import SettingsWindow
 from .gui_buttons_connect import Buttons_Connect
 from .get_sub_window import GetSubWindow
+from .show_errors import show_error
 
 from pystyle import Colors, Write
 
@@ -51,6 +52,18 @@ class Buttons_Click(Buttons_Connect):
         self.set_border_state("#C10404")
 
 
+#GET_SUB_LINK_BUTTON
+    @show_error
+    def get_sub_link(self):
+        link = self.get_sub_window.ui.input_SubLink.text().strip()
+
+        if not link:
+            raise ValueError("Put the link | NOT EMPTY-FORM")
+        if not link.startswith(("http://", "https://")):
+            raise ValueError("Wrong Link-form")
+        print("LINK:", link)
+
+
 #SETTINGS
     def open_settings(self):
         '''func to "open_settings(left-up button in main-gui)" button'''
@@ -84,7 +97,7 @@ class Buttons_Click(Buttons_Connect):
             self.x() + self.width() + 10,
             self.y()
         )        
-                
+
     def setting_clicked(self, item: str):
         text = item.text(0)
         label = self.settings_window.ui.infoLabel
@@ -119,7 +132,14 @@ class Buttons_Click(Buttons_Connect):
             self.get_sub_window.raise_()
             self.get_sub_window.activateWindow()
 
+            button = self.get_sub_window.ui.button_get_sub
+            input_field = self.get_sub_window.ui.input_SubLink
 
+            button.clicked.connect(self.get_sub_link)
+            input_field.returnPressed.connect(button.click)
+
+
+#MAIN-COLORS
     def set_border_state(self, color: Colors):
 
         self.ui.centralwidget.setStyleSheet(f"""

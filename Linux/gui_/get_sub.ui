@@ -31,16 +31,6 @@
       <property name="frameShadow">
        <enum>QFrame::Shadow::Raised</enum>
       </property>
-      <widget class="QPlainTextEdit" name="input_SubLink">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>260</width>
-         <height>29</height>
-        </rect>
-       </property>
-      </widget>
       <widget class="QPushButton" name="button_get_sub">
        <property name="geometry">
         <rect>
@@ -52,6 +42,16 @@
        </property>
        <property name="text">
         <string>PushButton</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="input_SubLink">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>260</width>
+         <height>29</height>
+        </rect>
        </property>
       </widget>
      </widget>

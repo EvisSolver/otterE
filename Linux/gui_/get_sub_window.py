@@ -11,3 +11,5 @@ class GetSubWindow(QWidget):
         self.ui.setupUi(self)
 
         self.setWindowTitle("SubLink")
+
+        self.setFixedSize(260, 80)

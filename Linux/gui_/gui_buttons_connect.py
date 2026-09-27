@@ -2,6 +2,7 @@ from .settings import server_status
 from .gui_main_window_config import UI
 
 
+
 class Buttons_Connect(UI):
     '''connect the buttons'''
     def __init__(self, server_links, total_servers):

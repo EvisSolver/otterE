@@ -15,7 +15,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QPlainTextEdit, QPushButton,
+from PySide6.QtWidgets import (QApplication, QFrame, QLineEdit, QPushButton,
     QSizePolicy, QVBoxLayout, QWidget)
 
 class Ui_Form(object):
@@ -33,12 +33,12 @@ class Ui_Form(object):
         self.frame.setObjectName(u"frame")
         self.frame.setFrameShape(QFrame.Shape.StyledPanel)
         self.frame.setFrameShadow(QFrame.Shadow.Raised)
-        self.input_SubLink = QPlainTextEdit(self.frame)
-        self.input_SubLink.setObjectName(u"input_SubLink")
-        self.input_SubLink.setGeometry(QRect(0, 0, 260, 29))
         self.button_get_sub = QPushButton(self.frame)
         self.button_get_sub.setObjectName(u"button_get_sub")
         self.button_get_sub.setGeometry(QRect(0, 30, 260, 51))
+        self.input_SubLink = QLineEdit(self.frame)
+        self.input_SubLink.setObjectName(u"input_SubLink")
+        self.input_SubLink.setGeometry(QRect(0, 0, 260, 29))
 
         self.verticalLayout.addWidget(self.frame)
 
