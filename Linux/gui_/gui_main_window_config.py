@@ -1,5 +1,3 @@
-import random
-
 from .ui_for_gui import Ui_MainWindow
 
 from PySide6.QtWidgets import QMainWindow

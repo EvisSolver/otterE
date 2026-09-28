@@ -1,9 +1,6 @@
 import asyncio, json
 from .settings import path_to_jsons
 
-from .xray import get_clean_json
-
-
 async def create_file(clean_link_list: list, servers_parameters: dict, total_servers: int):
     '''
         - creating the cycle which combine list[0:n servers] and dict[0:n servers to] to create files

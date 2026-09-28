@@ -6,7 +6,6 @@ from PySide6.QtWidgets import QTreeWidgetItem
 from pathlib import Path
 
 from core import settings, subscription, xray, storage
-from ui import console, picker
 
 from .settings_window import SettingsWindow
 from .gui_buttons_connect import Buttons_Connect
