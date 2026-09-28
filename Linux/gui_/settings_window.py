@@ -5,6 +5,7 @@ from .gui_widget_settings import Ui_Form
 
 class SettingsWindow(QWidget):
     def __init__(self):
+        '''call the class and set geometry for non-bugs'''
         super().__init__()
 
         self.setObjectName("SettingsForm")
