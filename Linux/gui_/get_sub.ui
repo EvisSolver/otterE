@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Get subscription</string>
   </property>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
@@ -41,7 +41,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>Get</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="input_SubLink">
@@ -52,6 +52,9 @@
          <width>260</width>
          <height>29</height>
         </rect>
+       </property>
+       <property name="placeholderText">
+        <string>Paste subscription link...</string>
        </property>
       </widget>
      </widget>
