@@ -1,7 +1,7 @@
 import subprocess, sys, asyncio
 
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QTreeWidgetItem
+from PySide6.QtCore import Qt, QTranslator
+from PySide6.QtWidgets import QTreeWidgetItem, QApplication
 
 from pathlib import Path
 
@@ -97,38 +97,8 @@ class Buttons_Click(Buttons_Connect):
         if self.settings_window is None:
             self.settings_window = SettingsWindow()
 
-            tree = self.settings_window.ui.settingsList
-            tree.clear()
-            tree.setHeaderHidden(True)
-            tree.setIndentation(0)
-
-            language = QTreeWidgetItem([
-                self.tr("Language")
-            ])
-
-            language.addChild(
-                QTreeWidgetItem([self.tr("English")])
-            )
-            language.addChild(
-                QTreeWidgetItem([self.tr("Русский")])
-            )
-            language.addChild(
-                QTreeWidgetItem([self.tr("Ukraine")])
-            )
-
-            theme = QTreeWidgetItem([
-                self.tr("Theme")
-            ])
-
-            sublink = QTreeWidgetItem([
-                self.tr("SubLink")
-            ])
-
-            tree.addTopLevelItem(theme)
-            tree.addTopLevelItem(language)
-            tree.addTopLevelItem(sublink)
-
-            tree.itemClicked.connect(
+            self.rebuild_settings_tree()
+            self.settings_window.ui.settingsList.itemClicked.connect(
                 self.setting_clicked
             )
 
@@ -152,35 +122,103 @@ class Buttons_Click(Buttons_Connect):
         self.get_sub_window.raise_()
         self.get_sub_window.activateWindow()
 
+    def rebuild_settings_tree(self):
+        self.tree = self.settings_window.ui.settingsList
+        self.tree.clear
 
-    def setting_clicked(self, item: str):
-        text = item.text(0)
-        label = self.settings_window.ui.infoLabel
+        self.tree.setHeaderHidden(True)
+        self.tree.setIndentation(0)
 
-        self.settings_window.ui.infoLabel.setStyleSheet("""
-            QLabel {
-                color: qlineargradient(x1:0, y1:0, x2:1, y2:0, 
-                                    stop:0 #00FF00, stop:1 #00FFFF);
-                font-weight: bold;
-            }
-        """)
+        theme = QTreeWidgetItem(
+            [
+                self.tr("Theme")
+            ]
+        )
+        theme.setData(0, Qt.ItemDataRole.UserRole, "theme")
 
-        label.setWordWrap(True)
-        label.setAlignment(
-            Qt.AlignmentFlag.AlignLeft |
-            Qt.AlignmentFlag.AlignTop
+        language = QTreeWidgetItem(
+            [self.tr("Language")]
+        )
+        language.setData(0, Qt.ItemDataRole.UserRole, "Language")
+
+        for text, code in [
+            ("English", "en"),
+            ("Русский", "ru"),
+            ("Ukraine", "uk")
+        ]:
+            item = QTreeWidgetItem(
+                [self.tr(text)]
+            )
+            item.setData(0, Qt.ItemDataRole.UserRole, f"language: {code}")
+            language.addChild(item)
+
+        sublink = QTreeWidgetItem(
+            [self.tr("SubLink")]
+        )
+        sublink.setData(0, Qt.ItemDataRole.UserRole, "sublink")
+
+        self.tree.addTopLevelItem(theme)
+        self.tree.addTopLevelItem(language)
+        self.tree.addTopLevelItem(sublink)
+
+    def set_language(self, code):
+        app = QApplication.instance()
+
+        if hasattr(self, "translator"):
+            app.removeTranslator(self.translator)
+
+        self.translator = QTranslator(app)
+
+        path = (
+            Path(__file__).resolve().parents[1]
+            / "translations"
+            / f"app_{code}.qm"
         )
 
-        if text == "Language" and item.parent() is None:
-            item.setExpanded(not item.isExpanded())
-            label.setText("changing your language")
-        elif item.parent() is not None:
-            print("Выбран язык:", text)
-            
-        if text == "Theme" and item.parent() is None:
-            self.settings_window.ui.infoLabel.setText('changing the "Theme" for your comfortable')
+        if not self.translator.load(str(path)):
+            print("Перевод не найден:", path)
+            return
 
-        if text == "SubLink":
+        app.installTranslator(self.translator)
+
+        # Обновляем тексты Designer
+        self.ui.retranslateUi(self)
+
+        if self.settings_window is not None:
+            self.settings_window.ui.retranslateUi(
+                self.settings_window
+            )
+            self.rebuild_settings_tree()
+
+        if self.get_sub_window is not None:
+            self.get_sub_window.ui.retranslateUi(
+                self.get_sub_window
+            )
+
+
+    def setting_clicked(self, item):
+        action = item.data(
+            0,
+            Qt.ItemDataRole.UserRole
+        )
+
+        if action == "language":
+            item.setExpanded(
+                not item.isExpanded()
+            )
+
+        elif isinstance(action, str) and action.startswith(
+            "language:"
+        ):
+            code = action.split(":", 1)[1]
+            self.set_language(code)
+
+        elif action == "theme":
+            self.settings_window.ui.infoLabel.setText(
+                self.tr('Changing the "Theme"')
+            )
+
+        elif action == "sublink":
             self.open_sublink()
 
 #MAIN-COLORS
