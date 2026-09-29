@@ -91,7 +91,7 @@ class Buttons_Click(Buttons_Connect):
 
         self.set_border_state("#C10404")
 
-        
+
 #SETTINGS
     def open_settings(self):
         if self.settings_window is None:
@@ -136,6 +136,23 @@ class Buttons_Click(Buttons_Connect):
         self.settings_window.raise_()
         self.settings_window.activateWindow()
 
+
+#SubLink
+    def open_sublink(self):
+        if self.get_sub_window is None:
+            self.get_sub_window = GetSubWindow()
+
+            button = self.get_sub_window.ui.button_get_sub
+            input_field = self.get_sub_window.ui.input_SubLink
+
+            button.clicked.connect(self.get_sub_link)
+            input_field.returnPressed.connect(button.click)
+
+        self.get_sub_window.show()
+        self.get_sub_window.raise_()
+        self.get_sub_window.activateWindow()
+
+
     def setting_clicked(self, item: str):
         text = item.text(0)
         label = self.settings_window.ui.infoLabel
@@ -164,18 +181,7 @@ class Buttons_Click(Buttons_Connect):
             self.settings_window.ui.infoLabel.setText('changing the "Theme" for your comfortable')
 
         if text == "SubLink":
-            if self.get_sub_window is None:
-                self.get_sub_window = GetSubWindow()
-            self.get_sub_window.show()
-            self.get_sub_window.raise_()
-            self.get_sub_window.activateWindow()
-
-            button = self.get_sub_window.ui.button_get_sub
-            input_field = self.get_sub_window.ui.input_SubLink
-
-            button.clicked.connect(self.get_sub_link)
-            input_field.returnPressed.connect(button.click)
-
+            self.open_sublink()
 
 #MAIN-COLORS
     def set_border_state(self, color: Colors):
