@@ -26,33 +26,6 @@ class Buttons_Click(Buttons_Connect):
         super().__init__(server_links, total_servers)
         self.process = None
 
-#MAIN MENU
-    def on_click(self):
-        '''func to "ON" button'''
-
-        current_server = self.ui.server_list.currentItem()
-        self.name_with_no_flag = current_server.text().split("|")[-1].strip()
-
-        self.ui.selected_server_label.setText(current_server.text())
-        self.ui.titleLabel.setText("IS WORKING...")
-
-        self.set_border_state("#238B06")
-        if current_server is not None:
-            print("server picked ", current_server.text(), self.name_with_no_flag)
-            self.process = subprocess.Popen(f"xray run -c '{settings.path_to_jsons}{self.name_with_no_flag}.json'", shell = True)
-        else: Write.Print("server_not_picked", Colors.red, interval = 0)
-
-    def off_click(self):
-        '''func to "ON" button'''
-
-        self.process.terminate()
-        subprocess.run("pkill -f xray", shell = True)
-        Write.Print(f"\n\nSERVER |{self.name_with_no_flag}| IS OFF\n", Colors.green, interval = 0)
-
-        self.ui.titleLabel.setText("IS NOT WORKING")
-        self.ui.selected_server_label.setText("$SERVER")
-
-        self.set_border_state("#C10404")
 
 
 #GET_SUB_LINK_BUTTON
@@ -90,39 +63,78 @@ class Buttons_Click(Buttons_Connect):
              self.ui.server_list.addItem(f"{self.flag} | {self.name}")
 
 
+#MAIN MENU
+    def on_click(self):
+        '''func to "ON" button'''
+
+        current_server = self.ui.server_list.currentItem()
+        self.name_with_no_flag = current_server.text().split("|")[-1].strip()
+
+        self.ui.selected_server_label.setText(current_server.text())
+        self.ui.titleLabel.setText("IS WORKING...")
+
+        self.set_border_state("#238B06")
+        if current_server is not None:
+            print("server picked ", current_server.text(), self.name_with_no_flag)
+            self.process = subprocess.Popen(f"xray run -c '{settings.path_to_jsons}{self.name_with_no_flag}.json'", shell = True)
+        else: Write.Print("server_not_picked", Colors.red, interval = 0)
+
+    def off_click(self):
+        '''func to "ON" button'''
+
+        self.process.terminate()
+        subprocess.run("pkill -f xray", shell = True)
+        Write.Print(f"\n\nSERVER |{self.name_with_no_flag}| IS OFF\n", Colors.green, interval = 0)
+
+        self.ui.titleLabel.setText("IS NOT WORKING")
+        self.ui.selected_server_label.setText("$SERVER")
+
+        self.set_border_state("#C10404")
+
+        
 #SETTINGS
     def open_settings(self):
-        '''func to "open_settings(left-up button in main-gui)" button'''
-        
         if self.settings_window is None:
             self.settings_window = SettingsWindow()
 
             tree = self.settings_window.ui.settingsList
-            tree.setIndentation(0)
-            
             tree.clear()
             tree.setHeaderHidden(True)
+            tree.setIndentation(0)
 
+            language = QTreeWidgetItem([
+                self.tr("Language")
+            ])
 
-            language = QTreeWidgetItem(["Language"])
-            language.addChild(QTreeWidgetItem(["English"]))
-            language.addChild(QTreeWidgetItem(["Русский"]))
-            language.addChild(QTreeWidgetItem(["Ukraine"]))
+            language.addChild(
+                QTreeWidgetItem([self.tr("English")])
+            )
+            language.addChild(
+                QTreeWidgetItem([self.tr("Русский")])
+            )
+            language.addChild(
+                QTreeWidgetItem([self.tr("Ukraine")])
+            )
 
-            theme = QTreeWidgetItem(["Theme"])
-            proxy = QTreeWidgetItem(["SubLink"])
+            theme = QTreeWidgetItem([
+                self.tr("Theme")
+            ])
+
+            sublink = QTreeWidgetItem([
+                self.tr("SubLink")
+            ])
 
             tree.addTopLevelItem(theme)
             tree.addTopLevelItem(language)
-            tree.addTopLevelItem(proxy)
+            tree.addTopLevelItem(sublink)
 
-            tree.itemClicked.connect(self.setting_clicked)
+            tree.itemClicked.connect(
+                self.setting_clicked
+            )
 
         self.settings_window.show()
-        self.settings_window.move(
-            self.x() + self.width() + 10,
-            self.y()
-        )
+        self.settings_window.raise_()
+        self.settings_window.activateWindow()
 
     def setting_clicked(self, item: str):
         text = item.text(0)
