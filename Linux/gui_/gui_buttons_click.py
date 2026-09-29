@@ -146,12 +146,15 @@ class Buttons_Click(Buttons_Connect):
             ("Русский", "ru"),
             ("Ukraine", "uk")
         ]:
+            code = code.strip()
+            print(code)
             item = QTreeWidgetItem(
                 [self.tr(text)]
             )
             item.setData(0, Qt.ItemDataRole.UserRole, f"language: {code}")
             language.addChild(item)
-
+        print(code)
+    
         sublink = QTreeWidgetItem(
             [self.tr("SubLink")]
         )
@@ -161,6 +164,7 @@ class Buttons_Click(Buttons_Connect):
         self.tree.addTopLevelItem(language)
         self.tree.addTopLevelItem(sublink)
 
+
     def set_language(self, code):
         app = QApplication.instance()
 
@@ -168,12 +172,8 @@ class Buttons_Click(Buttons_Connect):
             app.removeTranslator(self.translator)
 
         self.translator = QTranslator(app)
-
-        path = (
-            Path(__file__).resolve().parents[1]
-            / "translations"
-            / f"app_{code}.qm"
-        )
+        print(code)
+        path = f"translations/app_{code}.qm"
 
         if not self.translator.load(str(path)):
             print("Перевод не найден:", path)
