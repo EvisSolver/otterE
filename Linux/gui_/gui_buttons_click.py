@@ -98,9 +98,7 @@ class Buttons_Click(Buttons_Connect):
             self.settings_window = SettingsWindow()
 
             self.rebuild_settings_tree()
-            self.settings_window.ui.settingsList.itemClicked.connect(
-                self.setting_clicked
-            )
+            self.bind_settings_signals()
 
         self.settings_window.show()
         self.settings_window.raise_()
@@ -111,13 +109,8 @@ class Buttons_Click(Buttons_Connect):
     def open_sublink(self):
         if self.get_sub_window is None:
             self.get_sub_window = GetSubWindow()
-
-            button = self.get_sub_window.ui.button_get_sub
-            input_field = self.get_sub_window.ui.input_SubLink
-
-            button.clicked.connect(self.get_sub_link)
-            input_field.returnPressed.connect(button.click)
-
+            self.bind_sublink_signals()
+            
         self.get_sub_window.show()
         self.get_sub_window.raise_()
         self.get_sub_window.activateWindow()
