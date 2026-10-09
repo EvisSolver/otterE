@@ -27,7 +27,7 @@ async def create_file(clean_link_list: list, servers_parameters: dict, total_ser
             data = json.loads(server_parameter)
         except json.JSONDecodeError: continue
 
-        clean_link['server_name'] = clean_link['server_name'].replace(" ", "_")
+        clean_link['server_name'] = clean_link['server_name'].replace(" ", "_").replace("/", "_")
         filename = f"{path_to_jsons}{clean_link['server_name']}.json"
         with open(
             filename, "w", encoding = "utf-8"
