@@ -116,6 +116,7 @@ class Buttons_Click(Buttons_Connect):
         self.get_sub_window.activateWindow()
 
     def rebuild_settings_tree(self):
+        "translator"
         self.tree = self.settings_window.ui.settingsList
         self.tree.clear()
         self.tree.setHeaderHidden(True)
@@ -147,6 +148,7 @@ class Buttons_Click(Buttons_Connect):
 
 
     def setting_clicked(self, item: str):
+        """setting-menu opening"""
         text = item.text(0)
         label = self.settings_window.ui.infoLabel
 
@@ -178,6 +180,7 @@ class Buttons_Click(Buttons_Connect):
 
 #MAIN-COLORS
     def set_border_state(self, color: Colors):
+        """connecting the all color's"""
 
         self.ui.centralwidget.setStyleSheet(f"""
             QFrame#header {{
