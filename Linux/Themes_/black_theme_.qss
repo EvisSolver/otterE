@@ -78,13 +78,13 @@ QTreeWidget#settingsList::item:selected {
 }
 
 QLabel#infoLabel {
-    background-color: #05020f;
+    background-color: #0a090e;
     color: #70e7ff;
     font-weight: bold;
 }
 
 QFrame#infoPanel {
-    background-color: #120519;
+    background-color: #060708;
     border-radius: 8px;
 }
 

@@ -2,6 +2,8 @@ configs/
 __pycache__/
 *.pyc
 *.json
+*device_hwid
+*.ui
 link.py
 test/
 settings.py
