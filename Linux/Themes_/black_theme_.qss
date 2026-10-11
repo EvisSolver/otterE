@@ -1,0 +1,103 @@
+QMainWindow,
+QDialog,
+QWidget#centralwidget {
+    background-color: #101010;
+    color: #eeeeee;
+}
+
+QFrame#header,
+QFrame#serverPanel,
+QFrame#toggleFrame {
+    background-color: #181818;
+    border: 2px solid #444444;
+    border-radius: 8px;
+}
+
+QLabel {
+    color: #eeeeee;
+}
+
+QLabel#selected_server_label,
+QLabel#titleLabel {
+    background-color: #202020;
+    border: 2px solid #666666;
+    border-radius: 6px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+QListWidget#server_list {
+    background-color: #141414;
+    border: 2px solid #444444;
+    border-radius: 6px;
+    color: #eeeeee;
+    outline: none;
+}
+
+QListWidget#server_list::item {
+    padding: 8px;
+    border-bottom: 1px solid #303030;
+}
+
+QListWidget#server_list::item:selected {
+    background-color: #3a3a3a;
+    color: white;
+}
+
+QToolButton#gearButton,
+QPushButton#closeButton,
+QPushButton#onButton,
+QPushButton#offButton,
+QPushButton#button_get_sub {
+    background-color: #252525;
+    border: 2px solid #555555;
+    border-radius: 6px;
+    color: #eeeeee;
+    padding: 6px;
+    font-weight: bold;
+}
+
+QToolButton#gearButton:hover,
+QPushButton#closeButton:hover,
+QPushButton#onButton:hover,
+QPushButton#offButton:hover,
+QPushButton#button_get_sub:hover {
+    background-color: #444444;
+}
+
+QTreeWidget#settingsList {
+    background-color: #141414;
+    border: 2px solid #444444;
+    border-radius: 6px;
+    color: #eeeeee;
+}
+
+QTreeWidget#settingsList::item:selected {
+    background-color: #3a3a3a;
+    color: white;
+}
+
+QLabel#infoLabel {
+    background-color: #05020f;
+    color: #70e7ff;
+    font-weight: bold;
+}
+
+QFrame#infoPanel {
+    background-color: #120519;
+    border-radius: 8px;
+}
+
+QLineEdit#input_SubLink {
+    background-color: #141414;
+    border: 2px solid #444444;
+    border-radius: 6px;
+    color: #eeeeee;
+    padding: 7px;
+}
+
+QToolTip {
+    background-color: #202020;
+    color: white;
+    border: 1px solid #666666;
+}

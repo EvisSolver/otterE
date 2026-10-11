@@ -1,7 +1,8 @@
-import subprocess, sys, asyncio
+import subprocess, os, sys, asyncio
 
-from PySide6.QtCore import Qt, QTranslator #TODO
-from PySide6.QtWidgets import QTreeWidgetItem
+from PySide6.QtCore import Qt, QSize, QTranslator #TODO
+from PySide6.QtWidgets import QTreeWidgetItem, QApplication
+from PySide6.QtGui import QIcon
 
 from pathlib import Path
 
@@ -26,8 +27,10 @@ class Buttons_Click(Buttons_Connect):
         super().__init__(server_links, total_servers)
         self.process = None
 
+        self.set_theme("main_theme_.qss")
+        self.set_close_button()
 
-
+    
 #GET_SUB_LINK_BUTTON
     @show_error
     def get_sub_link(self):
@@ -126,16 +129,17 @@ class Buttons_Click(Buttons_Connect):
         theme.setData(0, Qt.ItemDataRole.UserRole, "theme")
 
         themes = {
-            "Galaxy": f"{}",
-            "Cute": "cute_theme",
-            "Black": "black_theme",
-            "Femboy": "femboy_theme"
+            "Galaxy": "galaxy_theme_.qss",
+            "Cute": "cute_theme_.qss",
+            "Black": "black_theme_.qss"
         }
-        for text_theme, _ in themes.items():
-            item_theme = QTreeWidgetItem([self.tr(text_theme)])
-            item_theme.setData(0, Qt.ItemDataRole.UserRole, f"Theme: {text_theme}")
-            theme.addChild(item_theme)
 
+        for text_theme, file_name in themes.items():
+            item_theme = QTreeWidgetItem([self.tr(text_theme)])
+            item_theme.setData(0, Qt.ItemDataRole.UserRole, f"Theme:{file_name}")
+
+            theme.addChild(item_theme)
+        
 
         language = QTreeWidgetItem([self.tr("Language")])
         language.setData(0, Qt.ItemDataRole.UserRole, "Language")
@@ -164,25 +168,11 @@ class Buttons_Click(Buttons_Connect):
         text = item.text(0)
         label = self.settings_window.ui.infoLabel
 
-        self.settings_window.ui.infoLabel.setStyleSheet("""
-            QLabel {
-                color: qlineargradient(x1:0, y1:0, x2:1, y2:0, 
-                                    stop:0 #00FF00, stop:1 #00FFFF);
-                font-weight: bold;
-            }
-        """)
-
         label.setWordWrap(True)
         label.setAlignment(
             Qt.AlignmentFlag.AlignLeft |
             Qt.AlignmentFlag.AlignTop
         )
-
-        if text == "Language" and item.parent() is None:
-            item.setExpanded(not item.isExpanded())
-            label.setText("changing your language")
-        elif item.parent() is not None:
-            print("Выбран язык:", text)# TODO need to writes on language which user picked before him
             
         if text == "Theme" and item.parent() is None:
             self.settings_window.ui.infoLabel.setText('changing the "Theme" for your comfortable')
@@ -190,7 +180,43 @@ class Buttons_Click(Buttons_Connect):
         if text == "SubLink":
             self.open_sublink()
 
-#MAIN-COLORS
+        theme_action = item.data(0, Qt.ItemDataRole.UserRole)
+        if isinstance(theme_action, str):
+            if theme_action.startswith("Theme:"):
+                file_name = theme_action.split(":", 1)[1]
+                self.set_theme(file_name)
+                return
+
+    # def set_gear_icon(self):
+    #     self.ui.gearButton.setText("")
+    #     self.ui.gearButton.setToolButtonStyle(
+    #         Qt.ToolButtonStyle.ToolButtonIconOnly
+    #     )
+    #     self.ui.gearButton.setIcon(
+    #         QIcon("Themes_/images_/settings_ico.png")
+    #     )
+    #     self.ui.gearButton.setIconSize(QSize(36, 36)) # NOT WORK'S
+    
+    def set_close_button(self):
+        self.ui.closeButton.setText("")
+        self.ui.closeButton.setIcon(
+            QIcon("Themes_/images_/close_button_ico.png")
+        )
+        self.ui.closeButton.setIconSize(QSize(36, 36))
+
+
+
+#SET-THEMES
+    def set_theme(self, theme_file):
+        with open(
+            f"Themes_/{theme_file}",
+            "r",
+            encoding = "utf-8"
+        ) as file:
+            QApplication.instance().setStyleSheet(file.read())
+
+
+#MAIN-COLORS(ON/OFF)
     def set_border_state(self, color: Colors):
         """connecting the all color's"""
 
@@ -217,9 +243,9 @@ class Buttons_Click(Buttons_Connect):
             QListWidget#server_list {{
                 border: 3px solid {color};
             }}
-
-            QToolButton#gearButton, QPushButton#closeButton {{
-                border: 3px solid {color};  
+            QToolButton#gearButton {{
+                background-color: transparent;
+                border: none;
             }}
         """)            
 

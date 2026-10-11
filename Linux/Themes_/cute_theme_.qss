@@ -1,0 +1,107 @@
+QMainWindow,
+QDialog,
+QWidget#centralwidget {
+    background-color: #fff0f7;
+    color: #633b58;
+}
+
+QFrame#header,
+QFrame#serverPanel,
+QFrame#toggleFrame {
+    background-color: #ffe2f0;
+    border: 2px solid #f39ac4;
+    border-radius: 14px;
+}
+
+QLabel {
+    color: #633b58;
+}
+
+QLabel#selected_server_label,
+QLabel#titleLabel {
+    background-color: #fff8fc;
+    border: 2px solid #ee86b8;
+    border-radius: 9px;
+    color: #c34f8c;
+    font-weight: bold;
+}
+
+QListWidget#server_list {
+    background-color: #fff8fc;
+    border: 2px solid #f39ac4;
+    border-radius: 9px;
+    color: #633b58;
+    outline: none;
+}
+
+QListWidget#server_list::item {
+    padding: 8px;
+    border-bottom: 1px solid #f7c3dc;
+}
+
+QListWidget#server_list::item:selected {
+    background-color: #f39ac4;
+    color: white;
+}
+
+QToolButton#gearButton,
+QPushButton#closeButton,
+QPushButton#onButton,
+QPushButton#offButton,
+QPushButton#button_get_sub {
+    background-color: #f6b5d2;
+    border: 2px solid #df6fa8;
+    border-radius: 10px;
+    color: white;
+    padding: 6px;
+    font-weight: bold;
+}
+
+QToolButton#gearButton:hover,
+QPushButton#closeButton:hover,
+QPushButton#onButton:hover,
+QPushButton#offButton:hover,
+QPushButton#button_get_sub:hover {
+    background-color: #df6fa8;
+}
+
+QTreeWidget#settingsList {
+    background-color: #fff8fc;
+    border: 2px solid #f39ac4;
+    border-radius: 9px;
+    color: #633b58;
+}
+
+QTreeWidget#settingsList::item:selected {
+    background-color: #f39ac4;
+    color: white;
+}
+
+QLabel#infoLabel {
+    background-image: url("Themes_/images_/kitty.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+QLabel#infoLabel {
+    color: #bb6593;
+    font-weight: bold;
+}
+
+QFrame#infoPanel {
+    background-color: #d878de;
+    border-radius: 0px;
+}
+
+QLineEdit#input_SubLink {
+    background-color: #fff8fc;
+    border: 2px solid #f39ac4;
+    border-radius: 9px;
+    color: #633b58;
+    padding: 7px;
+}
+
+QToolTip {
+    background-color: #fff0f7;
+    color: #633b58;
+    border: 1px solid #df6fa8;
+}

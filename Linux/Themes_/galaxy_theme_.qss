@@ -1,0 +1,107 @@
+QMainWindow,
+QDialog,
+QWidget#centralwidget {
+    background-color: #0b0820;
+    color: #e8e6ff;
+}
+
+QFrame#header,
+QFrame#serverPanel,
+QFrame#toggleFrame {
+    background-color: #120d2d;
+    border: 2px solid #6d4aff;
+    border-radius: 12px;
+}
+
+QLabel {
+    color: #e8e6ff;
+}
+
+QLabel#selected_server_label,
+QLabel#titleLabel {
+    background-color: #17113a;
+    border: 2px solid #9b6dff;
+    border-radius: 8px;
+    color: #70e7ff;
+    font-weight: bold;
+}
+
+QListWidget#server_list {
+    background-color: #0f0b27;
+    border: 2px solid #6d4aff;
+    border-radius: 8px;
+    color: #e8e6ff;
+    outline: none;
+}
+
+QListWidget#server_list::item {
+    padding: 8px;
+    border-bottom: 1px solid #28205c;
+}
+
+QListWidget#server_list::item:selected {
+    background-color: #6d4aff;
+    color: white;
+}
+
+QToolButton#gearButton,
+QPushButton#closeButton,
+QPushButton#onButton,
+QPushButton#offButton,
+QPushButton#button_get_sub {
+    background-color: #211650;
+    border: 2px solid #805cff;
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 6px;
+    font-weight: bold;
+}
+
+QToolButton#gearButton:hover,
+QPushButton#closeButton:hover,
+QPushButton#onButton:hover,
+QPushButton#offButton:hover,
+QPushButton#button_get_sub:hover {
+    background-color: #6d4aff;
+}
+
+QTreeWidget#settingsList {
+    background-color: #100b29;
+    border: 2px solid #6d4aff;
+    border-radius: 8px;
+    color: #e8e6ff;
+}
+
+QTreeWidget#settingsList::item:selected {
+    background-color: #6d4aff;
+    color: white;
+}
+
+QLabel#infoLabel {
+    background-color: #06011b;
+    color: #70e7ff;
+    font-weight: bold;
+}
+QLabel#infoLabel {
+    color: #5845c9;
+    font-weight: bold;
+}
+
+QFrame#infoPanel {
+    background-color: #120519;
+    border-radius: 8px;
+}
+
+QLineEdit#input_SubLink {
+    background-color: #100b29;
+    border: 2px solid #6d4aff;
+    border-radius: 8px;
+    color: white;
+    padding: 7px;
+}
+
+QToolTip {
+    background-color: #17113a;
+    color: white;
+    border: 1px solid #70e7ff;
+}
