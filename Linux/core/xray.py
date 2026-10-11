@@ -39,9 +39,7 @@ async def get_clean_json() -> list[all[dict]]:
     '''
     inbounds = [
         {"listen": "127.0.0.1", "port": 10808, "protocol": "socks",
-         "settings": {"udp": True}, "tag": "socks-in"},
-        {"listen": "127.0.0.1", "port": 10809, "protocol": "http",
-         "settings": {}, "tag": "http-in"},
+         "settings": {"udp": True}, "tag": "socks-in"}
     ]
 
     configs = []

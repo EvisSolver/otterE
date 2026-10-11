@@ -125,6 +125,18 @@ class Buttons_Click(Buttons_Connect):
         theme = QTreeWidgetItem([self.tr("Theme")])
         theme.setData(0, Qt.ItemDataRole.UserRole, "theme")
 
+        themes = {
+            "Galaxy": f"{}",
+            "Cute": "cute_theme",
+            "Black": "black_theme",
+            "Femboy": "femboy_theme"
+        }
+        for text_theme, _ in themes.items():
+            item_theme = QTreeWidgetItem([self.tr(text_theme)])
+            item_theme.setData(0, Qt.ItemDataRole.UserRole, f"Theme: {text_theme}")
+            theme.addChild(item_theme)
+
+
         language = QTreeWidgetItem([self.tr("Language")])
         language.setData(0, Qt.ItemDataRole.UserRole, "Language")
 
