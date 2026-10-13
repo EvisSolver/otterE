@@ -4,6 +4,7 @@ from PySide6.QtCore import Qt, QSize, QTranslator #TODO
 from PySide6.QtWidgets import QTreeWidgetItem, QApplication
 from PySide6.QtGui import QIcon
 
+from qasync import asyncSlot
 from pathlib import Path
 
 from core import settings, subscription, xray, storage
@@ -32,8 +33,8 @@ class Buttons_Click(Buttons_Connect):
 
     
 #GET_SUB_LINK_BUTTON
-    @show_error
-    def get_sub_link(self):
+    @asyncSlot()
+    async def get_sub_link(self):
         settings.LINK = (
             self.get_sub_window.ui.input_SubLink.text()
         )
@@ -45,13 +46,13 @@ class Buttons_Click(Buttons_Connect):
         ) as file:
             file.write(settings.LINK)
 
-        server_links, total_servers = asyncio.run(subscription.get_links())
-        clean_list = asyncio.run(subscription.get_clean_link(server_links))
+        server_links, total_servers = await subscription.get_links()
+        clean_list = await subscription.get_clean_link(server_links)
 
-        dirty_jsons = asyncio.run(xray.get_dirty_json(clean_list, total_servers))
+        dirty_jsons = await xray.get_dirty_json(clean_list, total_servers)
 
-        clean_list, total_servers = asyncio.run(storage.create_file(clean_list, dirty_jsons, total_servers))
-        full_clean_jsons = asyncio.run(xray.get_clean_json())
+        clean_list, total_servers = await storage.create_file(clean_list, dirty_jsons, total_servers)
+        full_clean_jsons = await xray.get_clean_json()
 
         self.server_links = clean_list
         self.total_servers = total_servers

@@ -22,42 +22,43 @@ async def get_links() -> tuple[dict[str], str]:
         settings.path_to_create_memory_file,
         encoding="utf-8"
     ) as file:
-        link = file.read().strip()
+        settings.LINK = file.read().strip()
 
-    if not link:
+    if not settings.LINK:
         raise ValueError("Xray-Link-Json пустой")
+    
+    if settings.LINK:
+        response = requests.get(
+            settings.LINK,
+            headers=HEADERS
+        )
+        server_headers = response.headers
+        has_limit = response.headers.get("X-Hwid-Active") == "true"
+        is_full = response.headers.get("X-Hwid-Max-Devices-Reached") == "true"
 
-    response = requests.get(
-        link,
-        headers=HEADERS
-    )
-    server_headers = response.headers
-    has_limit = response.headers.get("X-Hwid-Active") == "true"
-    is_full = response.headers.get("X-Hwid-Max-Devices-Reached") == "true"
+        Write.Print(f"SERVER_HEADERS: {server_headers}\nHAVE LIMIT: {has_limit}\nSUB NOT WORKS(LIMIT REACHED): {is_full}\n\n", Colors.green, interval = 0)
+        decoded_bytes = base64.b64decode(response.text)
+        decoded_text = decoded_bytes.decode("utf-8")
+        servers = decoded_text.splitlines()
 
-    Write.Print(f"SERVER_HEADERS: {server_headers}\nHAVE LIMIT: {has_limit}\nSUB NOT WORKS(LIMIT REACHED): {is_full}\n\n", Colors.green, interval = 0)
-    decoded_bytes = base64.b64decode(response.text)
-    decoded_text = decoded_bytes.decode("utf-8")
-    servers = decoded_text.splitlines()
+        total_servers = 0
 
-    total_servers = 0
+        for server in servers:
+            servers_list.append(server)
+            if "://" in server:
+                total_servers += 1
 
-    for server in servers:
-        servers_list.append(server)
-        if "://" in server:
-            total_servers += 1
+                name_flag = unquote(server.split("#")[1]).strip() if "#" in server else "unknown"
+                name = emoji.replace_emoji(name_flag, replace = "").strip()
+                if " " in name: name = name.replace(" ", "_")
 
-            name_flag = unquote(server.split("#")[1]).strip() if "#" in server else "unknown"
-            name = emoji.replace_emoji(name_flag, replace = "").strip()
-            if " " in name: name = name.replace(" ", "_")
-
-            server_[total_servers] = {
-                "name": name,
-                "flag": name_flag,
-                "link": server,
-                "clean_link": server.split("#", 1)[0]
-            }
-    return server_, total_servers
+                server_[total_servers] = {
+                    "name": name,
+                    "flag": name_flag,
+                    "link": server,
+                    "clean_link": server.split("#", 1)[0]
+                }
+        return server_, total_servers
 
 
 async def get_clean_link(server_links: dict) -> dict[all[str]]:
