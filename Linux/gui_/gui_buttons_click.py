@@ -70,29 +70,38 @@ class Buttons_Click(Buttons_Connect):
     def on_click(self):
         '''func to "ON" button'''
 
-        current_server = self.ui.server_list.currentItem()
-        self.name_with_no_flag = current_server.text().split("|")[-1].strip()
+        try:
+            current_server = self.ui.server_list.currentItem()
+            self.name_with_no_flag = current_server.text().split("|")[-1].strip()
 
-        self.ui.selected_server_label.setText(current_server.text())
-        self.ui.titleLabel.setText("IS WORKING...")
+            self.ui.selected_server_label.setText(current_server.text())
+            self.ui.titleLabel.setText("IS WORKING...")
 
-        if current_server is not None:
-            print("server picked ", current_server.text(), self.name_with_no_flag)
-            self.process = subprocess.Popen(f"xray run -c '{settings.path_to_jsons}{self.name_with_no_flag}.json'", shell = True)
-            self.set_border_state("on")
-        else: 
-            Write.Print("server_not_picked", Colors.red, interval = 0)
+            if current_server is not None:
+                print("server picked ", current_server.text(), self.name_with_no_flag)
+                self.process = subprocess.Popen(f"xray run -c '{settings.path_to_jsons}{self.name_with_no_flag}.json'", shell = True)
+                self.set_border_state("on")
+            else: 
+                self.set_border_state("off")
+                Write.Print("server_not_picked", Colors.red, interval = 0)
+
+        except Exception as error: Write.Print(f"Unknown Error in |ON| : {error}", Colors.red, interval = 0)
+
 
     def off_click(self):
         '''func to "ON" button'''
+        try:
+            self.process.terminate()
+            subprocess.run("pkill -f xray", shell = True)
+            Write.Print(f"\n\nSERVER |{self.name_with_no_flag}| IS OFF\n", Colors.green, interval = 0)
 
-        self.process.terminate()
-        subprocess.run("pkill -f xray", shell = True)
-        Write.Print(f"\n\nSERVER |{self.name_with_no_flag}| IS OFF\n", Colors.green, interval = 0)
+            self.ui.titleLabel.setText("IS NOT WORKING")
+            self.ui.selected_server_label.setText("$SERVER")
 
-        self.ui.titleLabel.setText("IS NOT WORKING")
-        self.ui.selected_server_label.setText("$SERVER")
-        
+            self.set_border_state("off")
+
+        except Exception as error: Write.Print(f"Unknown Error in |OFF| : {error}", Colors.red, interval = 0)
+
 
 #SETTINGS
     def open_settings(self):
@@ -212,11 +221,16 @@ class Buttons_Click(Buttons_Connect):
             state
         )
 
-        self.ui.centralwidget.style().unpolish(
-            self.ui.centralwidget
-        )
-        self.ui.centralwidget.style().polish(
-            self.ui.centralwidget
-        )
+        widgets = [
+            self.ui.centralwidget,
+            self.ui.header,
+            self.ui.serverPanel,
+            self.ui.selected_server_label,
+            self.ui.titleLabel,
+            self.ui.server_list,
+        ]
 
-        self.ui.centralwidget.update()
+        for widget in widgets:
+            widget.style().unpolish(widget)
+            widget.style().polish(widget)
+            widget.update()
