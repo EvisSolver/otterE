@@ -1,7 +1,11 @@
 from core import settings, subscription, xray, storage
+from load_local_servers_ import load_local_servers
 
 
 async def load_saved_servers():
+    local_servers, total_servers = load_local_servers()
+    if total_servers > 0: return local_servers, total_servers
+    
     try:
         with open(
             settings.path_to_create_memory_file,
