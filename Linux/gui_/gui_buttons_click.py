@@ -76,11 +76,12 @@ class Buttons_Click(Buttons_Connect):
         self.ui.selected_server_label.setText(current_server.text())
         self.ui.titleLabel.setText("IS WORKING...")
 
-        self.set_border_state("#238B06")
         if current_server is not None:
             print("server picked ", current_server.text(), self.name_with_no_flag)
             self.process = subprocess.Popen(f"xray run -c '{settings.path_to_jsons}{self.name_with_no_flag}.json'", shell = True)
-        else: Write.Print("server_not_picked", Colors.red, interval = 0)
+            self.set_border_state("on")
+        else: 
+            Write.Print("server_not_picked", Colors.red, interval = 0)
 
     def off_click(self):
         '''func to "ON" button'''
@@ -91,9 +92,7 @@ class Buttons_Click(Buttons_Connect):
 
         self.ui.titleLabel.setText("IS NOT WORKING")
         self.ui.selected_server_label.setText("$SERVER")
-
-        self.set_border_state("#C10404")
-
+        
 
 #SETTINGS
     def open_settings(self):
@@ -186,17 +185,8 @@ class Buttons_Click(Buttons_Connect):
                 file_name = theme_action.split(":", 1)[1]
                 self.set_theme(file_name)
                 return
-
-    # def set_gear_icon(self):
-    #     self.ui.gearButton.setText("")
-    #     self.ui.gearButton.setToolButtonStyle(
-    #         Qt.ToolButtonStyle.ToolButtonIconOnly
-    #     )
-    #     self.ui.gearButton.setIcon(
-    #         QIcon("Themes_/images_/settings_ico.png")
-    #     )
-    #     self.ui.gearButton.setIconSize(QSize(36, 36)) # NOT WORK'S
-    
+            
+#CLOSE-BUTTON
     def set_close_button(self):
         self.ui.closeButton.setText("")
         self.ui.closeButton.setIcon(
@@ -216,44 +206,17 @@ class Buttons_Click(Buttons_Connect):
             QApplication.instance().setStyleSheet(file.read())
 
 
-#MAIN-COLORS(ON/OFF)
-    def set_border_state(self, color: Colors):
-        """connecting the all color's"""
+    def set_border_state(self, state):
+        self.ui.centralwidget.setProperty(
+            "state",
+            state
+        )
 
-        self.ui.centralwidget.setStyleSheet(f"""
-            QFrame#header {{
-                background-color: #0d011d;
-                border: 3px solid {color};
-            }}
+        self.ui.centralwidget.style().unpolish(
+            self.ui.centralwidget
+        )
+        self.ui.centralwidget.style().polish(
+            self.ui.centralwidget
+        )
 
-            QFrame#serverPanel {{
-                background-color: #0d011d;
-                border: 3px solid {color};
-            }}
-
-
-            QLabel#selected_server_label {{
-                border: 3px solid {color};
-            }}
-
-            QLabel#titleLabel {{
-                border: 3px solid {color};
-            }}
-
-            QListWidget#server_list {{
-                border: 3px solid {color};
-            }}
-            QToolButton#gearButton {{
-                background-color: transparent;
-                border: none;
-            }}
-        """)            
-
-        self.ui.server_list.setStyleSheet(f"""
-
-            QListWidget#server_list::item {{
-            border-bottom: 3px solid #2E0054;
-            }}
-
-        """)
-
+        self.ui.centralwidget.update()

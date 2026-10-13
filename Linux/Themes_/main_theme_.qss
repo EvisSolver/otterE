@@ -119,3 +119,40 @@ QPushButton#button_get_sub {
     color: white;
     padding: 6px;
 }
+
+
+
+QPushButton#onButton,
+QPushButton#offButton {
+    background-color: #200933;
+    border: 2px solid #9b4dcc;
+    border-radius: 7px;
+    color: white;
+}
+
+QPushButton#onButton:hover,
+QPushButton#offButton:hover {
+    background-color: #7027a8;
+}
+
+QPushButton#onButton:pressed,
+QPushButton#offButton:pressed {
+    background-color: #9d4dcc;
+}
+
+
+QWidget#centralwidget[state="on"] QFrame#header,
+QWidget#centralwidget[state="on"] QFrame#serverPanel,
+QWidget#centralwidget[state="on"] QLabel#selected_server_label,
+QWidget#centralwidget[state="on"] QLabel#titleLabel,
+QWidget#centralwidget[state="on"] QListWidget#server_list {
+    border-color: #238B06;
+}
+
+QWidget#centralwidget[state="off"] QFrame#header,
+QWidget#centralwidget[state="off"] QFrame#serverPanel,
+QWidget#centralwidget[state="off"] QLabel#selected_server_label,
+QWidget#centralwidget[state="off"] QLabel#titleLabel,
+QWidget#centralwidget[state="off"] QListWidget#server_list {
+    border-color: #C10404;
+}
