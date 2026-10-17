@@ -1,3 +1,4 @@
+import base64
 from core import settings, subscription, xray, storage
 from load_local_servers_ import load_local_servers
 
@@ -10,7 +11,11 @@ async def load_saved_servers():
         with open(
             settings.path_to_create_memory_file,
             "r", encoding = "utf-8"
-        ) as file: settings.LINK = file.read().strip()
+        ) as file_text:
+            encoded_bytes = base64.b64encode(file_text.read().encode("utf-8"))
+            settings.LINK = file_text.read().strip()
+        decoded_bytes = base64.b64decode(encoded_bytes.decode())
+
 
     except FileNotFoundError: settings.LINK = ""
 
