@@ -101,3 +101,21 @@ QToolTip {
     color: white;
     border: 1px solid #666666;
 }
+
+
+/* SETTING COLORS WHEN BUTTONS HAS STATUS "clicked"*/
+                /* ON */
+QWidget#centralwidget[state="on"] QFrame#header,
+QWidget#centralwidget[state="on"] QFrame#serverPanel,
+QWidget#centralwidget[state="on"] QLabel#selected_server_label,
+QWidget#centralwidget[state="on"] QLabel#titleLabel,
+QWidget#centralwidget[state="on"] QListWidget#server_list {
+    border-color: #1f722a;
+}                /* OFF */
+QWidget#centralwidget[state="off"] QFrame#header,
+QWidget#centralwidget[state="off"] QFrame#serverPanel,
+QWidget#centralwidget[state="off"] QLabel#selected_server_label,
+QWidget#centralwidget[state="off"] QLabel#titleLabel,
+QWidget#centralwidget[state="off"] QListWidget#server_list {
+    border-color: #600d1b;
+}

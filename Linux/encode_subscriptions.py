@@ -27,3 +27,5 @@ with open(path_to_file_with_encoded_LINK, "w") as encode_file:
 #encoding text in the main file
 #every time decoding the file to link is works
 #
+
+# make to it when user-input it instantly writtes to output.txt
