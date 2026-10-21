@@ -127,6 +127,7 @@ class Buttons_Click(Buttons_Connect):
         self.get_sub_window.raise_()
         self.get_sub_window.activateWindow()
 
+#ADDING the tree-lists-buttons in settings
     def rebuild_settings_tree(self):
         "translator"
         self.tree = self.settings_window.ui.settingsList
@@ -171,7 +172,7 @@ class Buttons_Click(Buttons_Connect):
         self.tree.addTopLevelItem(language)
         self.tree.addTopLevelItem(sublink)
 
-
+#SETTINGS(IN)-BUTTONS
     def setting_clicked(self, item: str):
         """setting-menu opening"""
         text = item.text(0)
