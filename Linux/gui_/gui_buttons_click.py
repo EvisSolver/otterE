@@ -21,7 +21,6 @@ sys.path.append(str(_HERE))
 sys.path.append(str(_HERE.parent))
 from core import settings
 
-
 class Buttons_Click(Buttons_Connect):
     '''Button-click logic + design params(49:98)'''
     def __init__(self, server_links: list[all[dict]], total_servers: int):
@@ -34,11 +33,11 @@ class Buttons_Click(Buttons_Connect):
     
 #GET_SUB_LINK_BUTTON
     @asyncSlot()
+    @show_error
     async def get_sub_link(self):
         settings.LINK = (
             self.get_sub_window.ui.input_SubLink.text()
         )
-
         with open(
             settings.path_to_create_memory_file,
             "w",
