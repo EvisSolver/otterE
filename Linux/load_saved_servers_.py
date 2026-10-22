@@ -4,21 +4,22 @@ from load_local_servers_ import load_local_servers
 
 
 async def load_saved_servers():
+    servers = load_local_servers()
     try:
         with open(
             settings.path_to_create_memory_file,
             "r", encoding = "utf-8"
-        ) as file_text:
+        ) as file_text: print(file_text)
             # encoded_bytes = base64.b64encode(file_text.read().encode("utf-8"))
-            settings.LINK = file_text.read().strip()
+            # settings.LINK = file_text.read().strip()
         # decoded_bytes = base64.b64decode(encoded_bytes.decode())
 
-
-    except FileNotFoundError: settings.LINK = ""
-
-    local_servers, total_servers = load_local_servers()
     
-    if total_servers > 0: return local_servers, total_servers
+    except Exception as e: print(e)
+    # FileNotFoundError: settings.LINK = ""
+
+    total_servers = load_local_servers()
+    
     if not settings.LINK: return [], 0
 
 
