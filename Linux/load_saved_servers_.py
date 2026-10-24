@@ -4,7 +4,8 @@ from load_local_servers_ import load_local_servers
 
 
 async def load_saved_servers():
-    servers = load_local_servers()
+    servers = {"server_name_js": "server_json"}
+
     try:
         with open(
             settings.path_to_create_memory_file,
