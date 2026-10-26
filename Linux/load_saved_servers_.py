@@ -4,15 +4,15 @@ from load_local_servers_ import load_local_servers
 
 
 async def load_saved_servers():
-    servers = {"server_name_js": "server_json"}
-
     try:
         with open(
             settings.path_to_create_memory_file,
             "r", encoding = "utf-8"
-        ) as file_text: print(file_text)
+        ) as file_text: 
+            print(file_text)
+            settings.LINK = file_text.read().strip()
+            
             # encoded_bytes = base64.b64encode(file_text.read().encode("utf-8"))
-            # settings.LINK = file_text.read().strip()
         # decoded_bytes = base64.b64decode(encoded_bytes.decode())
 
     
