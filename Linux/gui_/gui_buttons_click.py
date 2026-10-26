@@ -30,6 +30,7 @@ class Buttons_Click(Buttons_Connect):
 
         self.set_theme("main_theme_.qss")
         self.set_close_button()
+        self.load_local_servers()
 
     def load_local_servers(self):
         servers = []    
@@ -121,7 +122,6 @@ class Buttons_Click(Buttons_Connect):
 
 #SETTINGS
     def open_settings(self):
-        self.load_local_servers()
         if self.settings_window is None:
             self.settings_window = SettingsWindow()
 
