@@ -6,13 +6,53 @@ link = "vless://3171f8e0-8463-4d72-a277-004e66cbf0c8@lgdf.z9rkv4mqpx.com:443?enc
 
 def vless_link_to_sing_box(vless_url: str) -> dict[str, any]:
     parsed = urlparse(vless_url)
-    print(parsed)
 
     if parsed.scheme != "vless": raise ValueError(f"Link have unsupported scheme {parsed.scheme}, requires vless://")
     user_info = parsed.username or ""
     server_host = parsed.hostname or ""
     server_port = parsed.port or 443
 
-    
-    
-vless_link_to_sing_box(link)
+    params = parse_qs(parsed.query, keep_blank_values = True)
+    def get_param(name: str, default: str = "") -> str:
+        val = params.get(name, [default])
+        return val[0] if val else default
+
+    connection_tag = unquote(parsed.fragment) if parsed.fragment else "vless-reality"
+
+    security_type = get_param("security", "none")
+    tls_enabled = security_type in ("tls", "reality")
+    reality_enabled = security_type == "reality"
+
+    singbox_outbound = {
+        "type": "vless",
+        "tag": connection_tag,
+        "server": server_host,
+        "server_port": server_port,
+        "uuid": user_info,
+        "flow": get_param("flow", ""),
+        "tls": {
+            "enabled": tls_enabled,
+            "server_name": get_param("sni", server_host),
+            "utls": {},
+            "reality": {},
+        "domain_resolver": "dns-local"
+        }
+    }
+
+    fingerprint = get_param("fp", "")
+    if fingerprint: singbox_outbound["tls"]["utls"] = {
+        "enabled": True,
+        "fingerprint": fingerprint
+    }
+
+    if reality_enabled:
+        public_key = get_param("pbk", "")
+        short_id = get_param("sid", "")
+        singbox_outbound["tls"]["reality"] = {
+            "enabled": True,
+            "public_key": public_key,
+            "short_id": short_id
+        }
+    return singbox_outbound
+json_need = vless_link_to_sing_box(link)
+print(json.dumps(json_need, indent = 3))
