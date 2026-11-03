@@ -58,6 +58,7 @@ async def get_links() -> tuple[dict[str], str]:
                     "link": server,
                     "clean_link": server.split("#", 1)[0]
                 }
+                print(server_)
         return server_, total_servers
 
 
