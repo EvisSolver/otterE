@@ -30,12 +30,12 @@ def vless_link_to_sing_box(vless_url: str) -> dict[str, any]:
         "server_port": server_port,
         "uuid": user_info,
         "flow": get_param("flow", ""),
+        "domain_resolver": "dns-local",
         "tls": {
             "enabled": tls_enabled,
             "server_name": get_param("sni", server_host),
             "utls": {},
-            "reality": {},
-        "domain_resolver": "dns-local"
+            "reality": {}
         }
     }
 
