@@ -4,7 +4,7 @@ from urllib.parse import urlparse, parse_qs, unquote
 link = "vless://3171f8e0-8463-4d72-a277-004e66cbf0c8@lgdf.z9rkv4mqpx.com:443?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=lgdf.z9rkv4mqpx.com&fp=qq&pbk=Q6glPwZOhnjHTPtRJUTFgJOBQGgJGTprQfCf_NpOsTc"
 
 def vless_link_to_sing_box_dirty_json(vless_url: str) -> dict[str, any]:
-    '''put vless-link - gets generated outbounds for sign-box'''
+    '''Put vless-link - gets generated outbounds for sign-box'''
     parsed = urlparse(vless_url)
 
     if parsed.scheme != "vless": raise ValueError(f"Link has unsupported scheme {parsed.scheme} | requires vless://")
@@ -14,6 +14,7 @@ def vless_link_to_sing_box_dirty_json(vless_url: str) -> dict[str, any]:
 
     params = parse_qs(parsed.query, keep_blank_values = True)
     def get_param(name: str, default: str = "") -> str:
+        '''Extracting values from str(link(query-string))'''
         val = params.get(name, [default])
         return val[0] if val else default
 

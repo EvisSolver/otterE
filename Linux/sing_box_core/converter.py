@@ -8,7 +8,7 @@ def read_Json_Config() -> dict:
     with open("sing_box_config.json", "r", encoding = "utf-8") as file: config = json.load(file)
     return config
 def dirty_json_to_clean_json_sing_box() -> dict:
-    '''adding json_config to generated json'''
+    '''Adding json_config to generated json'''
     s = {"type": "direct", "tag": "direct", "domain_resolver": "dns-local"}
     dirty_json = vless_link_to_sing_box_dirty_json(link)
     global_list = {"outbounds": []}
