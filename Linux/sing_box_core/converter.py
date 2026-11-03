@@ -18,4 +18,4 @@ def dirty_json_to_clean_json_sing_box() -> dict:
 
     global_list.update(json_config)
     print(json.dumps(global_list, indent = 4))
-dirty_json_to_clean_json_sing_box()
+    return global_list
