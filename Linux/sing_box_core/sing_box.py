@@ -1,4 +1,4 @@
-import subprocess
+import subprocess, json, traceback
 
 from create_files_jsons import create_jsons
 from config import path_to_jsons
@@ -6,7 +6,7 @@ from config import path_to_jsons
 
 # --- Checking the status of Json ---
 def check_status_of_sing_box(json_file) -> bool:
-    status_com = ["sudo", "sing-box", "check", "-c", json_file]
+    status_com = ["sing-box", "check", "-c", json_file]
     try:
         subprocess.run(
             status_com, # -- Bash command, with checking the sing-box status
@@ -20,7 +20,24 @@ def check_status_of_sing_box(json_file) -> bool:
     return status_sing_box # -- Checking each json-file
 
 # --- Starting the sing-box ---
+def start_sing_box(json_file):
+    start_com = ["sudo", "sing-box", "run", "-c", json_file]
+    status = check_status_of_sing_box(json_file)
+    if status:
+        try:
+            subprocess.run(
+                start_com, # -- Starting sing-box with sudo(SuperUserDO)
+                capture_output = True,
+                text = True,
+                check = True
+            )
+        except Exception as error:
+            with open("errors.log", "w", encoding = "utf-8") as log_file:
+                status_log = log_file.write(f"{'--' * 10}\nError\ntype:{type(error).__name__}\n{error}\n{'--' * 10}")
+                print(status_log)
+            return None
+
 file_name = f"{path_to_jsons}dskdfs.json" # -- Test file-name
 
 
-check_status_of_sing_box(file_name)
+start_sing_box(file_name)

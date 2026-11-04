@@ -1,0 +1,5 @@
+--------------------
+Error
+type:CalledProcessError
+Command '['sing-box', 'run', '-c', 'sing_box_jsons/dskdfs.json']' returned non-zero exit status 1.
+--------------------
