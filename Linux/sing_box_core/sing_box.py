@@ -21,7 +21,7 @@ def check_status_of_sing_box(json_file) -> bool:
 
 # --- Starting the sing-box ---
 def start_sing_box(json_file):
-    start_com = ["sudo", "sing-box", "run", "-c", json_file]
+    start_com = ["sing-box", "run", "-c", json_file]
     status = check_status_of_sing_box(json_file)
     if status:
         try:
