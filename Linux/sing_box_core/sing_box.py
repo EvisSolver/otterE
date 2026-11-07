@@ -1,5 +1,6 @@
-import subprocess, json, traceback
+import subprocess, traceback
 
+from load_saved_servers_ import load_saved_servers
 from create_files_jsons import create_jsons
 from sing_box_no_sudo_installer import perms_ready
 from config import path_to_jsons
@@ -25,6 +26,7 @@ def check_status_of_sing_box(json_file) -> bool:
 def start_sing_box(json_file):
     start_com = ["sing-box", "run", "-c", json_file]
     status = check_status_of_sing_box(json_file)
+
     if status:
         try:
             subprocess.run(
@@ -43,4 +45,3 @@ def start_sing_box(json_file):
 file_name = f"{path_to_jsons}dskdfs.json" # -- Test file-name
 
 
-start_sing_box(file_name)

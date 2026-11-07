@@ -1,13 +1,12 @@
 import json
 from get_sing_box_json import vless_link_to_sing_box_dirty_json
 
-link = "vless://3171f8e0-8463-4d72-a277-004e66cbf0c8@lgdf.z9rkv4mqpx.com:443?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=lgdf.z9rkv4mqpx.com&fp=qq&pbk=Q6glPwZOhnjHTPtRJUTFgJOBQGgJGTprQfCf_NpOsTc"
 
-def read_Json_Config() -> dict:
+async def read_Json_Config(country_name) -> dict:
     '''Reading json in config.py and returning'''
-    with open("sing_box_config.json", "r", encoding = "utf-8") as file: config = json.load(file)
+    with open(f"{country_name}.json", "r", encoding = "utf-8") as file: config = json.load(file)
     return config
-def dirty_json_to_clean_json_sing_box() -> dict:
+async def dirty_json_to_clean_json_sing_box(link) -> dict:
     '''Adding json_config to generated json'''
     s = {"type": "direct", "tag": "direct", "domain_resolver": "dns-local"}
     dirty_json = vless_link_to_sing_box_dirty_json(link)

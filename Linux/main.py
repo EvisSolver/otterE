@@ -12,15 +12,17 @@ from gui_.gui_buttons_click import Buttons_Click
 from pathlib import Path
 from core import settings, subscription, xray, storage
 from ui import console, picker
+from installer import installer
 
 from gui_.gui_main import main as gui_main
 
 
 async def app_main(app):
+    installer()
+
     server_links, total_servers = (
         await load_saved_servers_.load_saved_servers()
     )
-
     window = gui_main(
         server_links,
         total_servers

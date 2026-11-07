@@ -15,7 +15,7 @@ async def create_file(clean_link_list: list, servers_parameters: dict, total_ser
                                     -- print(my_dict)  # output: {'a': 10, 'b': 20}
         
         - then making 'with as file(like box in irl)': w: writting, encoding to reading with no errors and working is correctly on a lot operating-systems
-        creating files in 0.1 sec to not overload the system(maybe in future it got update which can checking 1000 servers in 0.1 secs and pc can lagged if there is no latency(delay))
+        creating files in 0.1 sec to not overload the system(maybe in future it got update which can checking 1000 servers in 0.005 secs and pc can lagged if there is no latency(delay))
         retu
 
         - awaiting get_clean_json - joins in dir jsons/ and creating files which correspond to server_parameter['server_name'].json
@@ -34,6 +34,6 @@ async def create_file(clean_link_list: list, servers_parameters: dict, total_ser
         ) as file:
             json.dump(data, file, ensure_ascii = False, indent = 2)
 
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.005)
 
     return clean_link_list, total_servers
