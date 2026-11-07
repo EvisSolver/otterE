@@ -1,5 +1,4 @@
 import json
-from .converter import dirty_json_to_clean_json_sing_box
 
 async def create_jsons(file_name, clean_json_for_sign_box):
     '''Create json-files in dir sing_box_jsons/'''
