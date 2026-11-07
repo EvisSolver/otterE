@@ -54,4 +54,6 @@ async def vless_link_to_sing_box_dirty_json(vless_url: str) -> dict[str, any]:
             "public_key": public_key,
             "short_id": short_id
         }
+    singbox_outbound['tag'] = singbox_outbound['tag'].replace(" ", "_").replace("/", "_")
+
     return singbox_outbound

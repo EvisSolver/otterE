@@ -12,7 +12,7 @@ def load_local_servers():
         if len(files):
             Write.Print(f"{len(files)} local servers found", Colors.green, interval = 0)
             for file in files:
-                print(file)
+                # print(file)
                 # subprocess.Popen(f"xray run -c {file}", shell = True)
                 servers.append(file)
         else: Write.Print("local servers not found", Colors.yellow, interval = 0)

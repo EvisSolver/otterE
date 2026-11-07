@@ -1,20 +1,17 @@
 import json
-from get_sing_box_json import vless_link_to_sing_box_dirty_json
 
-
-async def read_Json_Config(country_name) -> dict:
+async def read_Json_Config() -> dict:
     '''Reading json in config.py and returning'''
-    with open(f"{country_name}.json", "r", encoding = "utf-8") as file: config = json.load(file)
+    with open(f"sing_box_core/sing_box_config.json", "r", encoding = "utf-8") as file: config = json.load(file)
     return config
-async def dirty_json_to_clean_json_sing_box(link) -> dict:
+async def dirty_json_to_clean_json_sing_box(dirty_json) -> dict:
     '''Adding json_config to generated json'''
     s = {"type": "direct", "tag": "direct", "domain_resolver": "dns-local"}
-    dirty_json = vless_link_to_sing_box_dirty_json(link)
     global_list = {"outbounds": []}
     global_list["outbounds"].append(dirty_json)
     global_list["outbounds"].append(s)
 
-    json_config = read_Json_Config()
+    json_config = await read_Json_Config()
 
     global_list.update(json_config)
     print(json.dumps(global_list, indent = 4))

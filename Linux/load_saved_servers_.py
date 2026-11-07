@@ -1,7 +1,11 @@
 import base64
 from core import settings, subscription, xray, storage
 from load_local_servers_ import load_local_servers
+
 from sing_box_core.get_sing_box_json import vless_link_to_sing_box_dirty_json
+from sing_box_core.create_files_jsons import create_jsons
+from sing_box_core.create_files_jsons import dirty_json_to_clean_json_sing_box
+
 
 from pystyle import Colors, Write
 
@@ -27,14 +31,19 @@ async def load_saved_servers():
 
     server_links, total_servers = await subscription.get_links()
     clean_list = await subscription.get_clean_link(server_links)
-
+    # print(clean_list)
+    print("-" * 100)
     singbox_outbounds = [
         await vless_link_to_sing_box_dirty_json(item["server_link"])   # без await
         for item in clean_list
     ]
+    dirty_json = await dirty_json_to_clean_json_sing_box(singbox_outbounds)
+
     print(singbox_outbounds)
+    # print(singbox_outbounds)
     
     singbox_outbounds.append({"type": "direct", "tag": "direct", "domain_resolver": "dns-local"})
+ 
     dirty_jsons = await xray.get_dirty_json(clean_list, total_servers)
     clean_list, total_servers = await storage.create_file(clean_list, dirty_jsons, total_servers)
 
