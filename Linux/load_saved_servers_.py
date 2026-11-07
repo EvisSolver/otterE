@@ -3,9 +3,7 @@ from core import settings, subscription, xray, storage
 from load_local_servers_ import load_local_servers
 
 from sing_box_core.get_sing_box_json import vless_link_to_sing_box_dirty_json
-from sing_box_core.create_files_jsons import create_jsons
 from sing_box_core.create_files_jsons import dirty_json_to_clean_json_sing_box
-
 
 from pystyle import Colors, Write
 
