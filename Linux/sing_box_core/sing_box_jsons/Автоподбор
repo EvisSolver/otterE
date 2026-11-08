@@ -1,117 +1,27 @@
 {
   "outbounds": [
-    [
-      {
-        "type": "vless",
-        "tag": "_🇪🇺Автоподбор",
-        "server": "lgdf.z9rkv4mqpx.com",
-        "server_port": 443,
-        "uuid": "3171f8e0-8463-4d72-a277-004e66cbf0c8",
-        "flow": "xtls-rprx-vision",
-        "domain_resolver": "dns-local",
-        "tls": {
+    {
+      "type": "vless",
+      "tag": "_🇪🇺Автоподбор",
+      "server": "lgdf.z9rkv4mqpx.com",
+      "server_port": 443,
+      "uuid": "3171f8e0-8463-4d72-a277-004e66cbf0c8",
+      "flow": "xtls-rprx-vision",
+      "domain_resolver": "dns-local",
+      "tls": {
+        "enabled": true,
+        "server_name": "lgdf.z9rkv4mqpx.com",
+        "utls": {
           "enabled": true,
-          "server_name": "lgdf.z9rkv4mqpx.com",
-          "utls": {
-            "enabled": true,
-            "fingerprint": "qq"
-          },
-          "reality": {
-            "enabled": true,
-            "public_key": "Q6glPwZOhnjHTPtRJUTFgJOBQGgJGTprQfCf_NpOsTc",
-            "short_id": ""
-          }
-        }
-      },
-      {
-        "type": "vless",
-        "tag": "🇳🇱_Netherlands",
-        "server": "neth.z9rkv4mqpx.com",
-        "server_port": 443,
-        "uuid": "3171f8e0-8463-4d72-a277-004e66cbf0c8",
-        "flow": "xtls-rprx-vision",
-        "domain_resolver": "dns-local",
-        "tls": {
+          "fingerprint": "qq"
+        },
+        "reality": {
           "enabled": true,
-          "server_name": "neth.z9rkv4mqpx.com",
-          "utls": {
-            "enabled": true,
-            "fingerprint": "qq"
-          },
-          "reality": {
-            "enabled": true,
-            "public_key": "xI7zEYc51g7aF88svZw2XNw2s-WAjVYmBOZY5CuajVY",
-            "short_id": ""
-          }
-        }
-      },
-      {
-        "type": "vless",
-        "tag": "🇵🇱_Poland_🕹️Игровой_Сервер",
-        "server": "pol.z9rkv4mqpx.com",
-        "server_port": 443,
-        "uuid": "3171f8e0-8463-4d72-a277-004e66cbf0c8",
-        "flow": "xtls-rprx-vision",
-        "domain_resolver": "dns-local",
-        "tls": {
-          "enabled": true,
-          "server_name": "pol.z9rkv4mqpx.com",
-          "utls": {
-            "enabled": true,
-            "fingerprint": "qq"
-          },
-          "reality": {
-            "enabled": true,
-            "public_key": "nKIrn2sloLnATgtfCzu073xJAO6NiPxKlIEXV3_pE2Q",
-            "short_id": ""
-          }
-        }
-      },
-      {
-        "type": "vless",
-        "tag": "🇫🇮_Finland_",
-        "server": "lgdf.z9rkv4mqpx.com",
-        "server_port": 443,
-        "uuid": "3171f8e0-8463-4d72-a277-004e66cbf0c8",
-        "flow": "xtls-rprx-vision",
-        "domain_resolver": "dns-local",
-        "tls": {
-          "enabled": true,
-          "server_name": "lgdf.z9rkv4mqpx.com",
-          "utls": {
-            "enabled": true,
-            "fingerprint": "qq"
-          },
-          "reality": {
-            "enabled": true,
-            "public_key": "Q6glPwZOhnjHTPtRJUTFgJOBQGgJGTprQfCf_NpOsTc",
-            "short_id": ""
-          }
-        }
-      },
-      {
-        "type": "vless",
-        "tag": "🇷🇺_При_Б_C",
-        "server": "lgdf.z9rkv4mqpx.com",
-        "server_port": 443,
-        "uuid": "3171f8e0-8463-4d72-a277-004e66cbf0c8",
-        "flow": "xtls-rprx-vision",
-        "domain_resolver": "dns-local",
-        "tls": {
-          "enabled": true,
-          "server_name": "lgdf.z9rkv4mqpx.com",
-          "utls": {
-            "enabled": true,
-            "fingerprint": "qq"
-          },
-          "reality": {
-            "enabled": true,
-            "public_key": "Q6glPwZOhnjHTPtRJUTFgJOBQGgJGTprQfCf_NpOsTc",
-            "short_id": ""
-          }
+          "public_key": "Q6glPwZOhnjHTPtRJUTFgJOBQGgJGTprQfCf_NpOsTc",
+          "short_id": ""
         }
       }
-    ],
+    },
     {
       "type": "direct",
       "tag": "direct",
