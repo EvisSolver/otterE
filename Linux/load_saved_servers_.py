@@ -9,6 +9,7 @@ from sing_box_core.sing_box import check_status_of_sing_box
 from pystyle import Colors, Write
 
 async def load_saved_servers():
+    '''Checking local-servers on PC and responsible for sing-box'''
     try:
         with open(
             settings.path_to_create_memory_file,
@@ -52,11 +53,14 @@ async def load_saved_servers():
         
         clean_json = await dirty_json_to_clean_json_sing_box(dirty_json)
         json_in_file = await create_jsons(f"{server_name}", clean_json, path_to_sing_jsons)
-        Write.Print("-" * 100, Colors.blue, interval = 0)
-        print(json_in_file)
-        Write.Print("-" * 100, Colors.blue, interval = 0)
-                
+        # Write.Print("-" * 100, Colors.blue, interval = 0)
+        # print(json_in_file)
+        # Write.Print("-" * 100, Colors.blue, interval = 0)
+        
+        Write.Print("\n=" * 5, Colors.orange, interval = 0)
         server_status = await check_status_of_sing_box(path_to_sing_jsons, server_name)
+        Write.Print("=\n" * 5, Colors.orange, interval = 0)
+
         
 
     # print("-" * 100)

@@ -37,8 +37,8 @@ def start_sing_box(json_file):
             with open("errors.log", "w", encoding = "utf-8") as log_file:
                 status_log = log_file.write(f"{'--' * 10}\nError\ntype:{type(error).__name__}\n{error}\n{'--' * 10}")
                 traceback.print_exc(file = log_file)
-                print(status_log)
             return None
+    return status_log
 file_name = f"{path_to_jsons}dskdfs.json" # -- Test file-name
 
 
