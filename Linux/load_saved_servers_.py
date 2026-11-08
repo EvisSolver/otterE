@@ -38,11 +38,13 @@ async def load_saved_servers():
     print([dirty_json for dirty_json in dirty_jsons])
     print("-" * 100)
     print("=" * 100, "\n", clean_list)
+
+    path_to_sing_jsons = "sing_box_core/sing_box_jsons/"
     for server, dirty_json in zip(clean_list, dirty_jsons):
         print(server["server_name"].replace("/", "_"))
         server_name = server["server_name"].replace("/", "_")
         clean_json = await dirty_json_to_clean_json_sing_box(dirty_json)
-        json_in_file = await create_jsons(f"{server_name}", clean_json)
+        json_in_file = await create_jsons(f"{server_name}", clean_json, path_to_sing_jsons)
         
         
 
