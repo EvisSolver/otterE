@@ -39,7 +39,6 @@ def start_sing_box(json_file):
                 traceback.print_exc(file = log_file)
                 print(status_log)
             return None
-
 file_name = f"{path_to_jsons}dskdfs.json" # -- Test file-name
 
 

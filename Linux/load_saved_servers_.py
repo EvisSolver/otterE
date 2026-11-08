@@ -35,19 +35,25 @@ async def load_saved_servers():
         await vless_link_to_sing_box_dirty_json(item["server_link"])   # без await
         for item in clean_list
     ]
-    print("-" * 100)
-    print([dirty_json for dirty_json in dirty_jsons])
-    print("-" * 100)
-    print("=" * 100, "\n", clean_list)
+    # print("-" * 100)
+    # print([dirty_json for dirty_json in dirty_jsons])
+    # print("-" * 100)
+    # print("=" * 100, "\n", clean_list)
 
     path_to_sing_jsons = "sing_box_core/sing_box_jsons/"
     for server, dirty_json in zip(clean_list, dirty_jsons):
         print(server["server_name"].replace("/", "_"))
         server_name = server["server_name"].replace("/", "_")
+
+        Write.Print("-" * 100, Colors.purple, interval = 0)
+        Write.Print("-" * 100, Colors.purple, interval = 0)
+        dirty_json["tag"] = "vless-reality"
+        print(dirty_json)
+        
         clean_json = await dirty_json_to_clean_json_sing_box(dirty_json)
         json_in_file = await create_jsons(f"{server_name}", clean_json, path_to_sing_jsons)
-
         server_status = await check_status_of_sing_box(json_in_file)
+
         
 
     print("-" * 100)

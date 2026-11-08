@@ -4,3 +4,4 @@ PySide6
 qasync
 pystyle
 scipy
+aiohttp
