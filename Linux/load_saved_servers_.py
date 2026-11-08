@@ -4,6 +4,7 @@ from load_local_servers_ import load_local_servers
 from sing_box_core.get_sing_box_json import vless_link_to_sing_box_dirty_json
 from sing_box_core.converter import dirty_json_to_clean_json_sing_box
 from sing_box_core.create_files_jsons import create_jsons
+from sing_box_core.sing_box import check_status_of_sing_box
 
 from pystyle import Colors, Write
 
@@ -45,7 +46,8 @@ async def load_saved_servers():
         server_name = server["server_name"].replace("/", "_")
         clean_json = await dirty_json_to_clean_json_sing_box(dirty_json)
         json_in_file = await create_jsons(f"{server_name}", clean_json, path_to_sing_jsons)
-        
+
+        server_status = await check_status_of_sing_box(json_in_file)
         
 
     print("-" * 100)

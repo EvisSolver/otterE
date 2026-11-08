@@ -1,13 +1,11 @@
 import subprocess, traceback
 
-from load_saved_servers_ import load_saved_servers
-from create_files_jsons import create_jsons
-from sing_box_no_sudo_installer import perms_ready
-from config import path_to_jsons
+from .sing_box_no_sudo_installer import perms_ready
+from .config import path_to_jsons
 
 
 # --- Checking the status of Json ---
-def check_status_of_sing_box(json_file) -> bool:
+async def check_status_of_sing_box(json_file) -> bool:
     perms_ready()
     status_com = ["sing-box", "check", "-c", json_file]
     try:
