@@ -14,7 +14,7 @@ async def load_saved_servers():
             settings.path_to_create_memory_file,
             "r", encoding = "utf-8"
         ) as file_text: 
-            print(file_text)
+            # print(file_text)
             settings.LINK = file_text.read().strip()
             
             # encoded_bytes = base64.b64encode(file_text.read().encode("utf-8"))
@@ -42,22 +42,25 @@ async def load_saved_servers():
 
     path_to_sing_jsons = "sing_box_core/sing_box_jsons/"
     for server, dirty_json in zip(clean_list, dirty_jsons):
-        print(server["server_name"].replace("/", "_"))
+        # print(server["server_name"].replace("/", "_"))
         server_name = server["server_name"].replace("/", "_")
 
-        Write.Print("-" * 100, Colors.purple, interval = 0)
-        Write.Print("-" * 100, Colors.purple, interval = 0)
         dirty_json["tag"] = "vless-reality"
-        print(dirty_json)
+        # Write.Print("-" * 100, Colors.purple, interval = 0)
+        # print(dirty_json)
+        # Write.Print("-" * 100, Colors.purple, interval = 0)
         
         clean_json = await dirty_json_to_clean_json_sing_box(dirty_json)
         json_in_file = await create_jsons(f"{server_name}", clean_json, path_to_sing_jsons)
-        server_status = await check_status_of_sing_box(json_in_file)
-
+        Write.Print("-" * 100, Colors.blue, interval = 0)
+        print(json_in_file)
+        Write.Print("-" * 100, Colors.blue, interval = 0)
+                
+        server_status = await check_status_of_sing_box(path_to_sing_jsons, server_name)
         
 
-    print("-" * 100)
-    print(dirty_jsons)
+    # print("-" * 100)
+    # print(dirty_jsons)
     # print(singbox_outbounds)
 
     dirty_jsons = await xray.get_dirty_json(clean_list, total_servers)

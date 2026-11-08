@@ -5,9 +5,9 @@ from .config import path_to_jsons
 
 
 # --- Checking the status of Json ---
-async def check_status_of_sing_box(json_file) -> bool:
+async def check_status_of_sing_box(path_to_sing_jsons, json_file) -> bool:
     perms_ready()
-    status_com = ["sing-box", "check", "-c", json_file]
+    status_com = ["sing-box", "check", "-c", f"{path_to_sing_jsons}{json_file}.json"]
     try:
         subprocess.run(
             status_com, # -- Bash command, with checking the sing-box status
