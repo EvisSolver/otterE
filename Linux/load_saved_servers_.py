@@ -31,17 +31,15 @@ async def load_saved_servers():
     clean_list = await subscription.get_clean_link(server_links)
     # print(clean_list)
     print("-" * 100)
-    singbox_outbounds = [
+    dirty_json = [
         await vless_link_to_sing_box_dirty_json(item["server_link"])   # без await
         for item in clean_list
     ]
-    dirty_json = await dirty_json_to_clean_json_sing_box(singbox_outbounds)
+    clean_json = await dirty_json_to_clean_json_sing_box(dirty_json)
 
-    print(singbox_outbounds)
+    print(dirty_json)
     # print(singbox_outbounds)
-    singbox_outbounds.append({"type": "direct", "tag": "direct", "domain_resolver": "dns-local"})
-    for item in clean_list:
-        await create_jsons(item["server_name"], singbox_outbounds)
+    
 
     dirty_jsons = await xray.get_dirty_json(clean_list, total_servers)
     clean_list, total_servers = await storage.create_file(clean_list, dirty_jsons, total_servers)
