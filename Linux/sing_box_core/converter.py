@@ -3,6 +3,7 @@ import json
 async def read_Json_Config() -> dict:
     '''Reading json in config.py and returning'''
     with open(f"sing_box_core/sing_box_config.json", "r", encoding = "utf-8") as file: config = json.load(file)
+    print(config)
     return config
 async def dirty_json_to_clean_json_sing_box(dirty_json) -> dict:
     '''Adding json_config to generated json'''

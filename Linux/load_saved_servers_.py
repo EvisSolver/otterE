@@ -31,15 +31,21 @@ async def load_saved_servers():
     clean_list = await subscription.get_clean_link(server_links)
     # print(clean_list)
     print("-" * 100)
-    dirty_json = [
+    dirty_jsons = [
         await vless_link_to_sing_box_dirty_json(item["server_link"])   # без await
         for item in clean_list
     ]
-    clean_json = await dirty_json_to_clean_json_sing_box(dirty_json)
+    print("=" * 100, "\n", clean_list)
+    clean_json = await dirty_json_to_clean_json_sing_box(dirty_jsons)
+    for server in clean_list:
+        print(server["server_name"])
+        json_in_file = await create_jsons(f"{server["server_name"]}.json", [dirty_json for dirty_json in dirty_jsons])
+        
+        
 
-    print(dirty_json)
+    print("-" * 100)
+    print(dirty_jsons)
     # print(singbox_outbounds)
-    
 
     dirty_jsons = await xray.get_dirty_json(clean_list, total_servers)
     clean_list, total_servers = await storage.create_file(clean_list, dirty_jsons, total_servers)
