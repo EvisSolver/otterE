@@ -52,18 +52,8 @@ def start_sing_box(json_file):
             return None
 
 # --- Killing process when button unreleased|OFF| ---
-def kill_sing_box(process=None):
-    """Убивает sing-box. Если process передан и жив — мягко завершает его.
-       Всегда добивает через pkill на случай потери ссылки."""
-    if process is not None and hasattr(process, 'poll') and process.poll() is None:
-        process.terminate()
-        try:
-            process.wait(timeout=2)
-        except subprocess.TimeoutExpired:
-            process.kill()
-    
-    # Главная страховка: убиваем любой sing-box в системе
-    subprocess.run(["pkill", "-f", "sing-box"], capture_output=True)
+def kill_sing_box():
+    subprocess.Popen(["pkill", "-f", "sing-box"])
     print("Kill signal sent to sing-box")
 
 file_name = f"{path_to_jsons}dskdfs.json" # -- Test file-name

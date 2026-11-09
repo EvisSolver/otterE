@@ -130,9 +130,7 @@ class Buttons_Click(Buttons_Connect):
                 self.name_with_no_flag = current_server.text().split("|")[-1].strip()
                 print("server picked ", self.name_with_no_flag)
                 print(path_to_sing_jsons)
-                sing_box_process = start_sing_box(f"{path_to_sing_jsons}{self.name_with_no_flag}.json")
-                if sing_box_process is not None: self.sing_box_process = sing_box_process
-                else: self.ui.offButton.setChecked(False)
+                start_sing_box(f"{path_to_sing_jsons}{self.name_with_no_flag}.json")
         except subprocess.CalledProcessError as error:
             with open("errors.log", "w", encoding="utf-8") as log_file:
                 log_file.write(
@@ -141,14 +139,12 @@ class Buttons_Click(Buttons_Connect):
                     f"STDOUT:\n{error.stdout}\n"
                     f"{'--' * 10}\n"
                 )
-    def off_button_release(self):
-        kill_sing_box(self.sing_box_process)
-        self.sing_box_process = None
+    def off_button_release(self): kill_sing_box()
     def off_button_toggled(self, checked):
         print("OFF BUTTON:", checked,
           "process:", getattr(self, "sing_box_process", None))
         if checked: self.off_click()
-        else: self.off_button_release()
+        elif not checked: self.off_button_release()
 
 #SETTINGS
     def open_settings(self):
