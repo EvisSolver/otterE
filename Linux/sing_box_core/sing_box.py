@@ -43,8 +43,11 @@ def start_sing_box(json_file):
                 traceback.print_exc(file = log_file)
             return None
     return True
-def kill_sing_box():
-    subprocess.run(f"kill {sing_box_process}")
+def kill_sing_box(sing_box_process):
+    if sing_box_process is not None and sing_box_process.poll() is None:
+        sing_box_process.terminate()
+        try:sing_box_process.wait(timeout = 5)
+        except subprocess.TimeoutExpired: sing_box_process.kill()
 file_name = f"{path_to_jsons}dskdfs.json" # -- Test file-name
 
 

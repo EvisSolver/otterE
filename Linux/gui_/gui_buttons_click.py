@@ -124,11 +124,12 @@ class Buttons_Click(Buttons_Connect):
         try:
             current_server = self.ui.server_list.currentItem()
             if current_server is not None:
-                kill_sing_box()
                 self.name_with_no_flag = current_server.text().split("|")[-1].strip()
                 print("server picked ", self.name_with_no_flag)
                 print(path_to_sing_jsons)
-                start_sing_box(f"{path_to_sing_jsons}{self.name_with_no_flag}.json")
+                self.sing_box_process = start_sing_box(f"{path_to_sing_jsons}{self.name_with_no_flag}.json")
+                kill_sing_box(self.sing_box_process)
+                self.sing_box_process = None
         except subprocess.CalledProcessError as error:
             with open("errors.log", "w", encoding="utf-8") as log_file:
                 log_file.write(
