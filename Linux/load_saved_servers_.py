@@ -59,7 +59,6 @@ async def load_saved_servers():
         # Write.Print("-" * 100, Colors.blue, interval = 0)
         
         Write.Print("\n=" * 5, Colors.orange, interval = 0)
-        server_status = await check_status_of_sing_box(path_to_sing_jsons, server_name)
         Write.Print("=\n" * 5, Colors.orange, interval = 0)
 
         

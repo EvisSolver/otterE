@@ -1,4 +1,4 @@
-import subprocess, os, sys
+import subprocess, os, sys, asyncio
 
 from PySide6.QtCore import Qt, QSize, QTranslator #TODO
 from PySide6.QtWidgets import QTreeWidgetItem, QApplication
@@ -106,7 +106,6 @@ class Buttons_Click(Buttons_Connect):
 
         except Exception as error: Write.Print(f"Unknown Error in |ON| : {error}", Colors.red, interval = 0)
 
-
     def off_click(self):
         '''"ON" sing-box'''
         # try:
@@ -125,9 +124,17 @@ class Buttons_Click(Buttons_Connect):
             current_server = self.ui.server_list.currentItem()
             if current_server is not None:
                 self.name_with_no_flag = current_server.text().split("|")[-1].strip()
-                print("server picked ", current_server.text(), self.name_with_no_flag)
+                print("server picked ", self.name_with_no_flag)
+                print(path_to_sing_jsons)
                 start_sing_box(f"{path_to_sing_jsons}{self.name_with_no_flag}.json")
-        except Exception as error: print(error)
+        except subprocess.CalledProcessError as error:
+            with open("errors.log", "w", encoding="utf-8") as log_file:
+                log_file.write(
+                    f"{'--' * 10}\nError: {error}\n"
+                    f"STDERR:\n{error.stderr}\n"
+                    f"STDOUT:\n{error.stdout}\n"
+                    f"{'--' * 10}\n"
+                )
 
 #SETTINGS
     def open_settings(self):

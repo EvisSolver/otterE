@@ -1,13 +1,13 @@
-import subprocess, traceback
+import subprocess, traceback, os
 
 from .sing_box_no_sudo_installer import perms_ready
 from .config import path_to_jsons
 
 
 # --- Checking the status of Json ---
-async def check_status_of_sing_box(path_to_sing_jsons, json_file) -> bool:
+def check_status_of_sing_box(json_file) -> bool:
     perms_ready()
-    status_com = ["sing-box", "check", "-c", f"{path_to_sing_jsons}{json_file}.json"]
+    status_com = ["sing-box", "check", "-c", json_file]
     try:
         subprocess.run(
             status_com, # -- Bash command, with checking the sing-box status
@@ -22,8 +22,12 @@ async def check_status_of_sing_box(path_to_sing_jsons, json_file) -> bool:
 
 # --- Starting the sing-box ---
 def start_sing_box(json_file):
+    
     start_com = ["sing-box", "run", "-c", json_file]
     status = check_status_of_sing_box(json_file)
+    print("Переданный путь:", repr(json_file))
+    print("Абсолютный путь:", os.path.abspath(json_file))
+    print("Файл существует?:", os.path.exists(json_file))
 
     if status:
         try:
@@ -38,7 +42,7 @@ def start_sing_box(json_file):
                 status_log = log_file.write(f"{'--' * 10}\nError\ntype:{type(error).__name__}\n{error}\n{'--' * 10}")
                 traceback.print_exc(file = log_file)
             return None
-    return status_log
+    return True
 file_name = f"{path_to_jsons}dskdfs.json" # -- Test file-name
 
 
