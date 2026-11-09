@@ -31,12 +31,11 @@ def start_sing_box(json_file):
 
     if status:
         try:
-            subprocess.run(
+            sing_box_process = subprocess.Popen(
                 start_com, # -- Starting sing-box with sudo(SuperUserDO)
-                capture_output = True,
-                text = True,
-                check = True
+                text = True
             )
+            print(f"PID | sing-box | {sing_box_process.pid}")
         except Exception as error:
             with open("errors.log", "w", encoding = "utf-8") as log_file:
                 status_log = log_file.write(f"{'--' * 10}\nError\ntype:{type(error).__name__}\n{error}\n{'--' * 10}")

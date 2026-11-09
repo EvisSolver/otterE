@@ -15,7 +15,7 @@ def perms_ready() -> bool:
             print("The rules already exists")
             return True
         print("Try again")
-        subprocess.run(
+        subprocess.Popen(
             f"sudo setcap cap_net_admin,cap_net_bind_service=+ep {singbox_path}", # -- If doesn't exist's - installing the rules
             shell=True, 
             check=True
