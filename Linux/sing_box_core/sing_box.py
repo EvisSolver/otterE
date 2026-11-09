@@ -42,12 +42,13 @@ def start_sing_box(json_file):
                 status_log = log_file.write(f"{'--' * 10}\nError\ntype:{type(error).__name__}\n{error}\n{'--' * 10}")
                 traceback.print_exc(file = log_file)
             return None
-    return True
+
+# --- Killing process when button unreleased|OFF| ---
 def kill_sing_box(sing_box_process):
     if sing_box_process is not None and sing_box_process.poll() is None:
-        sing_box_process.terminate()
+        sing_box_process.terminate() # -- kill process from subprocess
         try:sing_box_process.wait(timeout = 5)
         except subprocess.TimeoutExpired: sing_box_process.kill()
+    subprocess.run(["pkill", "-f", "sing-box"])
+
 file_name = f"{path_to_jsons}dskdfs.json" # -- Test file-name
-
-
