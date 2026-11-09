@@ -88,16 +88,16 @@ class Buttons_Click(Buttons_Connect):
 #MAIN MENU
     def on_click(self):
         '''"ON" button'''
-
+        
         try:
-            current_server = self.ui.server_list.currentItem()
-            self.name_with_no_flag = current_server.text().split("|")[-1].strip()
+            self.current_server = self.ui.server_list.currentItem()
+            self.name_with_no_flag = self.current_server.text().split("|")[-1].strip()
 
-            self.ui.selected_server_label.setText(current_server.text())
+            self.ui.selected_server_label.setText(self.current_server.text())
             self.ui.titleLabel.setText("IS WORKING...")
 
-            if current_server is not None:
-                print("server picked ", current_server.text(), self.name_with_no_flag)
+            if self.current_server is not None:
+                print("server picked ", self.current_server.text(), self.name_with_no_flag)
                 self.process = subprocess.Popen(f"xray run -c '{settings.path_to_jsons}{self.name_with_no_flag}.json'", shell = True)
                 self.set_border_state("on")
             else: 
@@ -122,7 +122,11 @@ class Buttons_Click(Buttons_Connect):
         # except Exception as error: Write.Print(f"Unknown Error in |OFF| : {error}", Colors.red, interval = 0)
 
         try:
-            start_sing_box(f"{path_to_sing_jsons}{self.name_with_no_flag}.json")
+            current_server = self.ui.server_list.currentItem()
+            if current_server is not None:
+                self.name_with_no_flag = current_server.text().split("|")[-1].strip()
+                print("server picked ", current_server.text(), self.name_with_no_flag)
+                start_sing_box(f"{path_to_sing_jsons}{self.name_with_no_flag}.json")
         except Exception as error: print(error)
 
 #SETTINGS
