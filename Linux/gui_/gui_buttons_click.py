@@ -1,4 +1,4 @@
-import subprocess, os, sys, asyncio
+import subprocess, os, sys
 
 from PySide6.QtCore import Qt, QSize, QTranslator #TODO
 from PySide6.QtWidgets import QTreeWidgetItem, QApplication
@@ -9,10 +9,12 @@ from pathlib import Path
 
 from core import settings, subscription, xray, storage
 
+from sing_box_path import path_to_sing_jsons
 from .settings_window import SettingsWindow
 from .gui_buttons_connect import Buttons_Connect
 from .get_sub_window import GetSubWindow
 from .show_errors import show_error
+from sing_box_core.sing_box import start_sing_box
 
 from pystyle import Colors, Write
 
@@ -85,7 +87,7 @@ class Buttons_Click(Buttons_Connect):
 
 #MAIN MENU
     def on_click(self):
-        '''func to "ON" button'''
+        '''"ON" button'''
 
         try:
             current_server = self.ui.server_list.currentItem()
@@ -106,19 +108,22 @@ class Buttons_Click(Buttons_Connect):
 
 
     def off_click(self):
-        '''func to "ON" button'''
+        '''"ON" sing-box'''
+        # try:
+        #     self.process.terminate()
+        #     subprocess.run("pkill -f xray", shell = True)
+        #     Write.Print(f"\n\nSERVER |{self.name_with_no_flag}| IS OFF\n", Colors.green, interval = 0)
+
+        #     self.ui.titleLabel.setText("IS NOT WORKING")
+        #     self.ui.selected_server_label.setText("$SERVER")
+
+        #     self.set_border_state("off")
+
+        # except Exception as error: Write.Print(f"Unknown Error in |OFF| : {error}", Colors.red, interval = 0)
+
         try:
-            self.process.terminate()
-            subprocess.run("pkill -f xray", shell = True)
-            Write.Print(f"\n\nSERVER |{self.name_with_no_flag}| IS OFF\n", Colors.green, interval = 0)
-
-            self.ui.titleLabel.setText("IS NOT WORKING")
-            self.ui.selected_server_label.setText("$SERVER")
-
-            self.set_border_state("off")
-
-        except Exception as error: Write.Print(f"Unknown Error in |OFF| : {error}", Colors.red, interval = 0)
-
+            start_sing_box(f"{path_to_sing_jsons}{self.name_with_no_flag}.json")
+        except Exception as error: print(error)
 
 #SETTINGS
     def open_settings(self):

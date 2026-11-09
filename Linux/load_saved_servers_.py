@@ -1,6 +1,8 @@
 from core import settings, subscription, xray, storage
 from load_local_servers_ import load_local_servers
 
+from sing_box_path import path_to_sing_jsons
+
 from sing_box_core.get_sing_box_json import vless_link_to_sing_box_dirty_json
 from sing_box_core.converter import dirty_json_to_clean_json_sing_box
 from sing_box_core.create_files_jsons import create_jsons
@@ -41,7 +43,6 @@ async def load_saved_servers():
     # print("-" * 100)
     # print("=" * 100, "\n", clean_list)
 
-    path_to_sing_jsons = "sing_box_core/sing_box_jsons/"
     for server, dirty_json in zip(clean_list, dirty_jsons):
         # print(server["server_name"].replace("/", "_"))
         server_name = server["server_name"].replace("/", "_")

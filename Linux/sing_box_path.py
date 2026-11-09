@@ -1,0 +1,1 @@
+path_to_sing_jsons = "sing_box_core/sing_box_jsons/"
