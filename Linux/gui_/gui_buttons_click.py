@@ -14,7 +14,8 @@ from .settings_window import SettingsWindow
 from .gui_buttons_connect import Buttons_Connect
 from .get_sub_window import GetSubWindow
 from .show_errors import show_error
-from sing_box_core.sing_box import start_sing_box
+
+from sing_box_core.sing_box import start_sing_box, kill_sing_box
 
 from pystyle import Colors, Write
 
@@ -123,6 +124,7 @@ class Buttons_Click(Buttons_Connect):
         try:
             current_server = self.ui.server_list.currentItem()
             if current_server is not None:
+                kill_sing_box()
                 self.name_with_no_flag = current_server.text().split("|")[-1].strip()
                 print("server picked ", self.name_with_no_flag)
                 print(path_to_sing_jsons)

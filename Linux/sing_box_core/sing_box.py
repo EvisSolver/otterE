@@ -31,6 +31,7 @@ def start_sing_box(json_file):
 
     if status:
         try:
+            global sing_box_process
             sing_box_process = subprocess.Popen(
                 start_com, # -- Starting sing-box with sudo(SuperUserDO)
                 text = True
@@ -42,6 +43,8 @@ def start_sing_box(json_file):
                 traceback.print_exc(file = log_file)
             return None
     return True
+def kill_sing_box():
+    subprocess.run(f"kill {sing_box_process}")
 file_name = f"{path_to_jsons}dskdfs.json" # -- Test file-name
 
 
