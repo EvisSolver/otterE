@@ -49,6 +49,6 @@ def kill_sing_box(sing_box_process):
         sing_box_process.terminate() # -- kill process from subprocess
         try:sing_box_process.wait(timeout = 5)
         except subprocess.TimeoutExpired: sing_box_process.kill()
-    subprocess.run(["pkill", "-f", "sing-box"])
+    subprocess.run(["pkill", "-f", "sing-box"], capture_output = True)
 
 file_name = f"{path_to_jsons}dskdfs.json" # -- Test file-name

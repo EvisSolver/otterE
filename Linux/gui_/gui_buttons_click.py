@@ -30,6 +30,7 @@ class Buttons_Click(Buttons_Connect):
     def __init__(self, server_links: list[all[dict]], total_servers: int):
         print("window-obj added")
         super().__init__(server_links, total_servers)
+        self.sing_box_process = None
         self.process = None
 
         self.set_theme("main_theme_.qss")
@@ -129,7 +130,9 @@ class Buttons_Click(Buttons_Connect):
                 self.name_with_no_flag = current_server.text().split("|")[-1].strip()
                 print("server picked ", self.name_with_no_flag)
                 print(path_to_sing_jsons)
-                self.sing_box_process = start_sing_box(f"{path_to_sing_jsons}{self.name_with_no_flag}.json")
+                sing_box_process = start_sing_box(f"{path_to_sing_jsons}{self.name_with_no_flag}.json")
+                if sing_box_process is not None: self.sing_box_process = sing_box_process
+                else: self.ui.offButton.setChecked(False)
         except subprocess.CalledProcessError as error:
             with open("errors.log", "w", encoding="utf-8") as log_file:
                 log_file.write(
