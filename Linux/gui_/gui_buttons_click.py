@@ -144,6 +144,11 @@ class Buttons_Click(Buttons_Connect):
           "process:", getattr(self, "sing_box_process", None))
         if checked: self.TUN_button_pressed()
         elif not checked: self.TUN_button_released()
+    
+    def PROXY_button_released(self):
+    def PROXY_button_pressed(self):
+    def PROXY_button_toggler(self):
+
 
 #SETTINGS
     def open_settings(self):

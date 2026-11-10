@@ -21,7 +21,7 @@ class Buttons_Connect(UI):
         self.ui.onButton.setCheckable(True) # -- Checkable button | ON - checked | OFF - unchecked
         self.ui.offButton.setCheckable(True) # -- Checkable button | ON - checked | OFF - unchecked
 
-        self.ui.onButton.clicked.connect(self.on_click)
+        self.ui.onButton.clicked.connect(self.PROXY_button_toggler)
         self.ui.offButton.toggled.connect(self.TUN_button_toggler)
 #SETTINGS
     def bind_settings_signals(self):
