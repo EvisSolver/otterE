@@ -91,7 +91,6 @@ class Buttons_Click(Buttons_Connect):
 #MAIN MENU
     def on_click(self):
         '''"ON" button'''
-        
         try:
             self.current_server = self.ui.server_list.currentItem()
             self.name_with_no_flag = self.current_server.text().split("|")[-1].strip()
@@ -102,7 +101,7 @@ class Buttons_Click(Buttons_Connect):
             if self.current_server is not None:
                 print("server picked ", self.current_server.text(), self.name_with_no_flag)
                 self.process = subprocess.Popen(f"xray run -c '{settings.path_to_jsons}{self.name_with_no_flag}.json'", shell = True)
-                self.set_border_state("on")
+                self.set_border_state("proxy_on")
             else: 
                 self.set_border_state("off")
                 Write.Print("server_not_picked", Colors.red, interval = 0)
