@@ -107,7 +107,7 @@ QToolTip {
 }
 
 
-/* SETTING COLORS WHEN BUTTONS HAS STATUS "clicked"*/
+/* SETTING COLORS WHEN BUTTONS HAS STATUS "clicked"
                 /* ON */
 QWidget#centralwidget[state="on"] QFrame#header,
 QWidget#centralwidget[state="on"] QFrame#serverPanel,
@@ -122,4 +122,53 @@ QWidget#centralwidget[state="off"] QLabel#selected_server_label,
 QWidget#centralwidget[state="off"] QLabel#titleLabel,
 QWidget#centralwidget[state="off"] QListWidget#server_list {
     border-color: #050105;
+}
+*/
+
+
+/* SETTING COLORS WHEN BUTTONS HAS STATUS "clicked"*/
+
+                /* PROXY_OFF Released */
+QWidget#centralwidget[state="proxy_off"] QFrame#header,
+QWidget#centralwidget[state="proxy_off"] QFrame#serverPanel,
+QWidget#centralwidget[state="proxy_off"] QLabel#selected_server_label,
+QWidget#centralwidget[state="proxy_off"] QLabel#titleLabel,
+QWidget#centralwidget[state="proxy_off"] QListWidget#server_list {
+    border-color: #C10404;
+}
+QWidget#centralwidget[state="proxy_on"] QPushButton#offButton {
+    border: 2px solid #C10404;
+}
+                /* PROXY_ON Pressed*/
+QWidget#centralwidget[state="proxy_on"] QFrame#header,
+QWidget#centralwidget[state="proxy_on"] QFrame#serverPanel,
+QWidget#centralwidget[state="proxy_on"] QLabel#selected_server_label,
+QWidget#centralwidget[state="proxy_on"] QLabel#titleLabel,
+QWidget#centralwidget[state="proxy_on"] QListWidget#server_list {
+    border-color: #238B06;
+}
+QWidget#centralwidget[state="proxy_on"] QPushButton#onButton {
+    border: 2px solid #70FF70;
+}
+
+
+                /* OFF Released */
+QWidget#centralwidget[state="off"] QFrame#header,
+QWidget#centralwidget[state="off"] QFrame#serverPanel,
+QWidget#centralwidget[state="off"] QLabel#selected_server_label,
+QWidget#centralwidget[state="off"] QLabel#titleLabel,
+QWidget#centralwidget[state="off"] QListWidget#server_list {
+    border-color: #C10404;
+}
+
+                /* OFF Pressed */
+QWidget#centralwidget[state="proxy_on"] QFrame#header,
+QWidget#centralwidget[state="proxy_on"] QFrame#serverPanel,
+QWidget#centralwidget[state="proxy_on"] QLabel#selected_server_label,
+QWidget#centralwidget[state="proxy_on"] QLabel#titleLabel,
+QWidget#centralwidget[state="proxy_on"] QListWidget#server_list {
+    border-color: #238B06;
+}
+QWidget#centralwidget[state="proxy_on"] QPushButton#onButton {
+    border: 2px solid #70FF70;
 }
