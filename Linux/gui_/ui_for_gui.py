@@ -147,7 +147,7 @@ class Ui_MainWindow(object):
         self.gearButton.setText(QCoreApplication.translate("MainWindow", u"\u2699", None))
         self.titleLabel.setText(QCoreApplication.translate("MainWindow", u"IS NOT WORKING", None))
         self.closeButton.setText(QCoreApplication.translate("MainWindow", u"\u2715", None))
-        self.onButton.setText(QCoreApplication.translate("MainWindow", u"ON", None))
-        self.offButton.setText(QCoreApplication.translate("MainWindow", u"OFF", None))
+        self.onButton.setText(QCoreApplication.translate("MainWindow", u"PROXY", None))
+        self.offButton.setText(QCoreApplication.translate("MainWindow", u"TUN", None))
     # retranslateUi
 
