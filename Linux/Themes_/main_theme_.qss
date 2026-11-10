@@ -149,12 +149,17 @@ QWidget#centralwidget[state="on"] QLabel#selected_server_label,
 QWidget#centralwidget[state="on"] QLabel#titleLabel,
 QWidget#centralwidget[state="on"] QListWidget#server_list {
     border-color: #238B06;
-    
-}                /* OFF Released */
+}
+
+              /* OFF Released */
 QWidget#centralwidget[state="off"] QFrame#header,
 QWidget#centralwidget[state="off"] QFrame#serverPanel,
 QWidget#centralwidget[state="off"] QLabel#selected_server_label,
 QWidget#centralwidget[state="off"] QLabel#titleLabel,
 QWidget#centralwidget[state="off"] QListWidget#server_list {
     border-color: #C10404;
+}
+QWidget#centralwidget[state="on"] QPushButton#onButton {
+    background-color: #238B06;
+    border: 2px solid #70FF70;
 }

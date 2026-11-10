@@ -109,7 +109,7 @@ class Buttons_Click(Buttons_Connect):
 
         except Exception as error: Write.Print(f"Unknown Error in |ON| : {error}", Colors.red, interval = 0)
 
-    def off_click(self):
+    def TUN_button_pressed(self):
         '''"ON" sing-box'''
         # try:
         #     self.process.terminate()
@@ -139,12 +139,12 @@ class Buttons_Click(Buttons_Connect):
                     f"STDOUT:\n{error.stdout}\n"
                     f"{'--' * 10}\n"
                 )
-    def off_button_release(self): kill_sing_box()
-    def off_button_toggled(self, checked):
-        print("OFF BUTTON:", checked,
+    def TUN_button_released(self): kill_sing_box()
+    def TUN_button_toggler(self, checked):
+        print("TUN BUTTON:", checked,
           "process:", getattr(self, "sing_box_process", None))
-        if checked: self.off_click()
-        elif not checked: self.off_button_release()
+        if checked: self.TUN_button_pressed()
+        elif not checked: self.TUN_button_released()
 
 #SETTINGS
     def open_settings(self):
@@ -272,6 +272,7 @@ class Buttons_Click(Buttons_Connect):
             self.ui.selected_server_label,
             self.ui.titleLabel,
             self.ui.server_list,
+            self.ui.onButton
         ]
 
         for widget in widgets:
