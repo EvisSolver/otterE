@@ -59,3 +59,6 @@ async def get_clean_json() -> list[all[dict]]:
         configs.append(json_config)
 
     return configs
+
+def kill_xray_core():
+    subprocess.run("killall xray", shell = True)

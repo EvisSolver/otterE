@@ -102,9 +102,9 @@ class Buttons_Click(Buttons_Connect):
                 print("server picked ", self.current_server.text(), self.name_with_no_flag)
                 self.process = subprocess.Popen(f"xray run -c '{settings.path_to_jsons}{self.name_with_no_flag}.json'", shell = True)
                 self.set_border_state("proxy_on")
-            else: 
-                self.set_border_state("off")
-                Write.Print("server_not_picked", Colors.red, interval = 0)
+            # else: 
+            #     self.set_border_state("off")
+            #     Write.Print("server_not_picked", Colors.red, interval = 0)
 
         except Exception as error: Write.Print(f"Unknown Error in |ON| : {error}", Colors.red, interval = 0)
 
@@ -144,11 +144,29 @@ class Buttons_Click(Buttons_Connect):
           "process:", getattr(self, "sing_box_process", None))
         if checked: self.TUN_button_pressed()
         elif not checked: self.TUN_button_released()
-    
-    def PROXY_button_released(self):
-    def PROXY_button_pressed(self):
-    def PROXY_button_toggler(self):
 
+
+    def PROXY_button_pressed(self):
+        '''ON PROXY'''
+        try:
+            self.current_server = self.ui.server_list.currentItem()
+            self.name_with_no_flag = self.current_server.text().split("|")[-1].strip()  
+            self.ui.selected_server_label.setText(self.current_server.text())
+            self.ui.titleLabel.setText("IS WORKING...")
+            
+            if self.current_server is not None:
+                print("server picked ", self.current_server.text(), self.name_with_no_flag)
+                self.process = subprocess.Popen(f"xray run -c '{settings.path_to_jsons}{self.name_with_no_flag}.json'", shell = True)
+                self.set_border_state("proxy_on")
+        except Exception as error: Write.Print(f"Unknown Error in |ON| : {error}", Colors.red, interval = 0)
+                
+    def PROXY_button_released(self):
+        '''OFF PROXY'''
+        xray.kill_xray_core()
+        self.set_border_state("proxy_off")
+    def PROXY_button_toggler(self, checked):
+        if checked: self.PROXY_button_pressed()
+        if not checked: self.PROXY_button_released()
 
 #SETTINGS
     def open_settings(self):
