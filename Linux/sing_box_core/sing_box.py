@@ -55,5 +55,6 @@ def start_sing_box(json_file):
 def kill_sing_box():
     subprocess.Popen(["pkill", "-f", "sing-box"])
     print("Kill signal sent to sing-box")
+    
 
 file_name = f"{path_to_jsons}dskdfs.json" # -- Test file-name
