@@ -1,4 +1,3 @@
-import sys, asyncio
 from pathlib import Path
 from PySide6.QtWidgets import QApplication
 from qasync import QEventLoop
