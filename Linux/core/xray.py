@@ -61,4 +61,4 @@ async def get_clean_json() -> list[all[dict]]:
     return configs
 
 def kill_xray_core():
-    subprocess.run("killall xray", shell = True)
+    subprocess.run("pkill -9 xray", shell = True)
