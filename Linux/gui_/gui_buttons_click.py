@@ -87,27 +87,6 @@ class Buttons_Click(Buttons_Connect):
              print(self.flag, self.name)
              self.ui.server_list.addItem(f"{self.flag} | {self.name}")
 
-
-#MAIN MENU
-    def on_click(self):
-        '''"ON" button'''
-        try:
-            self.current_server = self.ui.server_list.currentItem()
-            self.name_with_no_flag = self.current_server.text().split("|")[-1].strip()
-
-            self.ui.selected_server_label.setText(self.current_server.text())
-            self.ui.titleLabel.setText("IS WORKING...")
-
-            if self.current_server is not None:
-                print("server picked ", self.current_server.text(), self.name_with_no_flag)
-                self.process = subprocess.Popen(f"xray run -c '{settings.path_to_jsons}{self.name_with_no_flag}.json' &", shell = True)
-                self.set_border_state("proxy_on")
-            # else: 
-            #     self.set_border_state("off")
-            #     Write.Print("server_not_picked", Colors.red, interval = 0)
-
-        except Exception as error: Write.Print(f"Unknown Error in |ON| : {error}", Colors.red, interval = 0)
-
     def TUN_button_pressed(self):
         '''TUN ON'''
         try:
@@ -127,14 +106,14 @@ class Buttons_Click(Buttons_Connect):
                 )
     def TUN_button_released(self): 
         kill_sing_box()
-        self.set_border_state("TUN_off")
+        self.set_border_state("TUN_OFF")
         
     def TUN_button_toggler(self, checked):
         print("TUN BUTTON:", checked,
           "process:", getattr(self, "sing_box_process", None))
         if checked: 
             self.TUN_button_pressed()
-            self.set_border_state("TUN_on")
+            self.set_border_state("TUN_ON")
         elif not checked: self.TUN_button_released()
 
 
@@ -149,13 +128,13 @@ class Buttons_Click(Buttons_Connect):
             if self.current_server is not None:
                 print("server picked ", self.current_server.text(), self.name_with_no_flag)
                 self.process = subprocess.Popen(f"xray run -c '{settings.path_to_jsons}{self.name_with_no_flag}.json' &", shell = True)
-                self.set_border_state("proxy_on")
+                self.set_border_state("PROXY_ON")
         except Exception as error: Write.Print(f"Unknown Error in |ON| : {error}", Colors.red, interval = 0)
                 
     def PROXY_button_released(self):
         '''OFF PROXY'''
         xray.kill_xray_core()
-        self.set_border_state("proxy_off")
+        self.set_border_state("PROXY_OFF")
     def PROXY_button_toggler(self, checked):
         if checked: self.PROXY_button_pressed()
         if not checked: self.PROXY_button_released()
@@ -274,9 +253,22 @@ class Buttons_Click(Buttons_Connect):
 
 
     def set_border_state(self, state):
-        self.ui.centralwidget.setProperty(
-            "state",
-            state
+        if state.startswith("PROXY_"):
+            self.ui.centralwidget.setProperty(
+                "PROXY_state",
+                state
+            )
+
+        elif state.startswith("TUN_"):
+            self.ui.centralwidget.setProperty(
+                "TUN_state",
+                state
+            )
+
+        print(
+            state,
+            self.ui.centralwidget.property("PROXY_state"),
+            self.ui.centralwidget.property("TUN_state")
         )
 
         widgets = [
@@ -287,7 +279,7 @@ class Buttons_Click(Buttons_Connect):
             self.ui.titleLabel,
             self.ui.server_list,
             self.ui.onButton,
-            self.ui.offButton
+            self.ui.offButton,
         ]
 
         for widget in widgets:
