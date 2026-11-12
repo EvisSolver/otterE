@@ -103,24 +103,6 @@ QToolTip {
 }
 
 
-/* SETTING COLORS WHEN BUTTONS HAS STATUS "clicked"
-                /* ON */
-QWidget#centralwidget[state="proxy_on"] QFrame#header,
-QWidget#centralwidget[state="proxy_on"] QFrame#serverPanel,
-QWidget#centralwidget[state="proxy_on"] QLabel#selected_server_label,
-QWidget#centralwidget[state="proxy_on"] QLabel#titleLabel,
-QWidget#centralwidget[state="proxy_on"] QListWidget#server_list {
-    border-color: #1f722a;
-}                /* OFF */
-QWidget#centralwidget[state="off"] QFrame#header,
-QWidget#centralwidget[state="off"] QFrame#serverPanel,
-QWidget#centralwidget[state="off"] QLabel#selected_server_label,
-QWidget#centralwidget[state="off"] QLabel#titleLabel,
-QWidget#centralwidget[state="off"] QListWidget#server_list {
-    border-color: #600d1b;
-}
-*/
-
 
 /* SETTING COLORS WHEN BUTTONS HAS STATUS "clicked"*/
 
@@ -130,10 +112,10 @@ QWidget#centralwidget[PROXY_state="PROXY_OFF"] QFrame#serverPanel,
 QWidget#centralwidget[PROXY_state="PROXY_OFF"] QLabel#selected_server_label,
 QWidget#centralwidget[PROXY_state="PROXY_OFF"] QLabel#titleLabel,
 QWidget#centralwidget[PROXY_state="PROXY_OFF"] QListWidget#server_list {
-    border-color: #C10404;
+    border-color: #8e0909;
 }
 QWidget#centralwidget[PROXY_state="PROXY_OFF"] QPushButton#onButton {
-    border: 2px solid #C10404;
+    border: 2px solid #8e0909;
 }
                 /* PROXY_ON Pressed*/
 QWidget#centralwidget[PROXY_state="PROXY_ON"] QFrame#header,
@@ -144,7 +126,7 @@ QWidget#centralwidget[PROXY_state="PROXY_ON"] QListWidget#server_list {
     border-color: #238B06;
 }
 QWidget#centralwidget[PROXY_state="PROXY_ON"] QPushButton#onButton {
-    border: 2px solid #70FF70;
+    border: 2px solid #89fd89;
 }
 
 
@@ -154,10 +136,10 @@ QWidget#centralwidget[TUN_state="TUN_OFF"] QFrame#serverPanel,
 QWidget#centralwidget[TUN_state="TUN_OFF"] QLabel#selected_server_label,
 QWidget#centralwidget[TUN_state="TUN_OFF"] QLabel#titleLabel,
 QWidget#centralwidget[TUN_state="TUN_OFF"] QListWidget#server_list {
-    border-color: #C10404;
+    border-color: #8e0909;
 }
 QWidget#centralwidget[TUN_state="TUN_OFF"] QPushButton#offButton {
-    border: 2px solid #C10404;
+    border: 2px solid #8e0909;
 }
 
                 /* TUN_ON Pressed */
@@ -169,5 +151,5 @@ QWidget#centralwidget[TUN_state="TUN_ON"] QListWidget#server_list {
     border-color: #238B06;
 }
 QWidget#centralwidget[TUN_state="TUN_ON"] QPushButton#offButton {
-    border: 2px solid #70FF70;
+    border: 2px solid #89fd89;
 }
