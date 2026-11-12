@@ -2,6 +2,7 @@ from .settings import server_status
 from .gui_main_window_config import UI
 
 
+# === Connecting the Button's ===
 class Buttons_Connect(UI):
     '''connect the buttons'''
     def __init__(self, server_links, total_servers):
@@ -12,18 +13,19 @@ class Buttons_Connect(UI):
 
         self.connect_signals()
 
-#GUI
+# --- GUI ---
     def connect_signals(self):
-        self.ui.closeButton.clicked.connect(self.close)
-        self.ui.gearButton.clicked.connect(self.open_settings)
+        self.ui.closeButton.clicked.connect(self.close) # -- Close Button
+        self.ui.gearButton.clicked.connect(self.open_settings) # -- Settings Button
 
 
         self.ui.onButton.setCheckable(True) # -- Checkable button | ON - checked | OFF - unchecked
         self.ui.offButton.setCheckable(True) # -- Checkable button | ON - checked | OFF - unchecked
 
-        self.ui.onButton.clicked.connect(self.PROXY_button_toggler)
-        self.ui.offButton.toggled.connect(self.TUN_button_toggler)
-#SETTINGS
+        self.ui.onButton.clicked.connect(self.PROXY_button_toggler) # -- Button-Toggler
+        self.ui.offButton.toggled.connect(self.TUN_button_toggler) # -- Button-Toggler
+
+# --- SETTINGS ---
     def bind_settings_signals(self):
         if self._settings_signals_bound: return
         if self.settings_window is None: return
@@ -31,7 +33,8 @@ class Buttons_Connect(UI):
         self.settings_window.ui.settingsList.itemClicked.connect(self.setting_clicked)
 
         self._settings_signals_bound = True
-#SUBLINK
+
+# --- SUBLINK ---
     def bind_sublink_signals(self):
         if self._sublink_signals_bound: return
         if self.get_sub_window is None: return

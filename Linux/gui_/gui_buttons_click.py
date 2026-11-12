@@ -24,6 +24,8 @@ sys.path.append(str(_HERE))
 sys.path.append(str(_HERE.parent))
 from core import settings
 
+
+# === Buttons ===
 class Buttons_Click(Buttons_Connect):
     '''Button-click logic + design params(49:98)'''
     
@@ -37,7 +39,7 @@ class Buttons_Click(Buttons_Connect):
         self.set_close_button()
         self.load_local_servers()
 
-    def load_local_servers(self):
+    def load_local_servers(self): # -- Check on Local Servers | No have - Skip | Have - Adding
         servers = []    
         try:
             files = [f for f in os.listdir(settings.path_to_jsons) if os.path.isfile(os.path.join(settings.path_to_jsons, f)) and f.endswith(".json")]
@@ -53,10 +55,11 @@ class Buttons_Click(Buttons_Connect):
             Write.Print(error, Colors.red, interval = 0)
         return servers
     
-#GET_SUB_LINK_BUTTON
+# -- GET_SUB_LINK_BUTTON --
     @asyncSlot()
     @show_error
     async def get_sub_link(self):
+        '''Gets Link and adding servers'''
         settings.LINK = (
             self.get_sub_window.ui.input_SubLink.text()
         )
@@ -87,7 +90,8 @@ class Buttons_Click(Buttons_Connect):
              print(self.flag, self.name)
              self.ui.server_list.addItem(f"{self.flag} | {self.name}")
 
-    def TUN_button_pressed(self):
+# --- TUN Button's ---
+    def TUN_button_pressed(self): # -- Starting Sing-box
         '''TUN ON'''
         try:
             current_server = self.ui.server_list.currentItem()
@@ -104,11 +108,11 @@ class Buttons_Click(Buttons_Connect):
                     f"STDOUT:\n{error.stdout}\n"
                     f"{'--' * 10}\n"
                 )
-    def TUN_button_released(self): 
+    def TUN_button_released(self): # -- Kills sing-box when TUN OFF
         kill_sing_box()
         self.set_border_state("TUN_OFF")
         
-    def TUN_button_toggler(self, checked):
+    def TUN_button_toggler(self, checked): # -- Toggling TUN button's ON/OFF
         print("TUN BUTTON:", checked,
           "process:", getattr(self, "sing_box_process", None))
         if checked: 
@@ -116,8 +120,8 @@ class Buttons_Click(Buttons_Connect):
             self.set_border_state("TUN_ON")
         elif not checked: self.TUN_button_released()
 
-
-    def PROXY_button_pressed(self):
+# --- PROXY Button's ---
+    def PROXY_button_pressed(self): # -- Starting Xray
         '''ON PROXY'''
         try:
             self.current_server = self.ui.server_list.currentItem()
@@ -131,15 +135,15 @@ class Buttons_Click(Buttons_Connect):
                 self.set_border_state("PROXY_ON")
         except Exception as error: Write.Print(f"Unknown Error in |ON| : {error}", Colors.red, interval = 0)
                 
-    def PROXY_button_released(self):
+    def PROXY_button_released(self): # -- Killing Xray
         '''OFF PROXY'''
         xray.kill_xray_core()
         self.set_border_state("PROXY_OFF")
-    def PROXY_button_toggler(self, checked):
+    def PROXY_button_toggler(self, checked): # -- Toggling Xray button's ON/OFF
         if checked: self.PROXY_button_pressed()
         if not checked: self.PROXY_button_released()
 
-#SETTINGS
+# --- SETTINGS ---
     def open_settings(self):
         if self.settings_window is None:
             self.settings_window = SettingsWindow()
@@ -152,7 +156,7 @@ class Buttons_Click(Buttons_Connect):
         self.settings_window.activateWindow()
 
 
-#SubLink
+# --- SubLink ---
     def open_sublink(self):
         if self.get_sub_window is None:
             self.get_sub_window = GetSubWindow()
@@ -162,7 +166,7 @@ class Buttons_Click(Buttons_Connect):
         self.get_sub_window.raise_()
         self.get_sub_window.activateWindow()
 
-#ADDING the tree-lists-buttons in settings
+# -- Tree-Lists-Buttons in Settings --
     def rebuild_settings_tree(self):
         "translator"
         self.tree = self.settings_window.ui.settingsList
@@ -207,7 +211,7 @@ class Buttons_Click(Buttons_Connect):
         self.tree.addTopLevelItem(language)
         self.tree.addTopLevelItem(sublink)
 
-#SETTINGS(IN)-BUTTONS
+# -- SETTINGS(IN)-BUTTONS --
     def setting_clicked(self, item: str):
         """setting-menu opening"""
         text = item.text(0)
@@ -232,7 +236,7 @@ class Buttons_Click(Buttons_Connect):
                 self.set_theme(file_name)
                 return
             
-#CLOSE-BUTTON
+# --- CLOSE-BUTTON ---
     def set_close_button(self):
         self.ui.closeButton.setText("")
         self.ui.closeButton.setIcon(
@@ -243,7 +247,7 @@ class Buttons_Click(Buttons_Connect):
         xray.kill_xray_core()
 
 
-#SET-THEMES
+# --- SET-THEMES ---
     def set_theme(self, theme_file):
         with open(
             f"Themes_/{theme_file}",
@@ -252,7 +256,7 @@ class Buttons_Click(Buttons_Connect):
         ) as file:
             QApplication.instance().setStyleSheet(file.read())
 
-
+# --- SET-BORDER-STATE ---
     def set_border_state(self, state):
         if state.startswith("PROXY_"):
             self.ui.centralwidget.setProperty(
