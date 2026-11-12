@@ -1,7 +1,7 @@
 import shutil
 import subprocess
 
-def perms_ready() -> bool:
+def perms_ready_SING_BOX() -> bool:
     '''Checking/Installing the Rules to open the gui in next times with not "sudo"'''
     singbox_path = shutil.which("sing-box") or "/usr/bin/sing-box"
     

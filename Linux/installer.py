@@ -10,9 +10,6 @@ def installer():
 
         if not shutil.which("setcap"): subprocess.run("sudo pacman -S --noconfirm libcap", shell=True, check=True)
         else: print("setcap already installed")
-
-        if shutil.which("sing-box"): subprocess.run("sudo setcap 'cap_net_admin,cap_net_raw,cap_net_bind_service=+ep' $(which sing-box)", shell=True, check=True)
-        if shutil.which("xray"): subprocess.run("sudo setcap 'cap_net_admin,cap_net_raw,cap_net_bind_service=+ep' $(which xray)", shell=True, check=True)
             
         print("\ndone")
     except Exception as error: print(error)

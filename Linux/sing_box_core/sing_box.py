@@ -1,13 +1,13 @@
 import subprocess, traceback, os
 
-from .sing_box_no_sudo_installer import perms_ready
+from .sing_box_no_sudo_installer import perms_ready_SING_BOX
 from .config import path_to_jsons
 
 from pystyle import Colors, Write
 
 # --- Checking the status of Json ---
 def check_status_of_sing_box(json_file) -> bool:
-    perms_ready()
+    perms_ready_SING_BOX()
     status_com = ["sing-box", "check", "-c", json_file]
     try:
         subprocess.run(
