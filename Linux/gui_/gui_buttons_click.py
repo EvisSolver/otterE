@@ -239,7 +239,8 @@ class Buttons_Click(Buttons_Connect):
             QIcon("Themes_/images_/close_button_ico.png")
         )
         self.ui.closeButton.setIconSize(QSize(36, 36))
-
+        kill_sing_box()
+        xray.kill_xray_core()
 
 
 #SET-THEMES

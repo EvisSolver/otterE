@@ -6,7 +6,6 @@ from sing_box_path import path_to_sing_jsons
 from sing_box_core.get_sing_box_json import vless_link_to_sing_box_dirty_json
 from sing_box_core.converter import dirty_json_to_clean_json_sing_box
 from sing_box_core.create_files_jsons import create_jsons
-from sing_box_core.sing_box import check_status_of_sing_box
 
 from pystyle import Colors, Write
 
