@@ -1,4 +1,5 @@
 import subprocess, shutil
+from set_cap import set_cap_if_needed
 
 def installer():
     try:
@@ -10,6 +11,10 @@ def installer():
 
         if not shutil.which("setcap"): subprocess.run("sudo pacman -S --noconfirm libcap", shell=True, check=True)
         else: print("setcap already installed")
-            
+
+        print(f"xray {bool(set_cap_if_needed('xray'))}")
+        print(f"sing-box {bool(set_cap_if_needed('sing-box'))}")        
+
         print("\ndone")
+        
     except Exception as error: print(error)

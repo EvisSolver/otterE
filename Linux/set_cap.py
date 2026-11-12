@@ -1,7 +1,7 @@
 import subprocess, shutil
 
-
-def set_cap_if_needed(binary):
+# --- setcap ---
+def set_cap_if_needed(binary: str) -> bool:
     path = shutil.which(binary)
     if not path: return
 
@@ -14,3 +14,5 @@ def set_cap_if_needed(binary):
             ["sudo", "setcap", f"{caps}=+ep", path],
             check = True
         )
+
+    return True
