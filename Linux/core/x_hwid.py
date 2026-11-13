@@ -18,9 +18,17 @@ DEVICE_OS = platform.system()
 DEVICE_MODEL = platform.machine()
 
 # Заголовки с твоей «подписью» для запроса
+# HEADERS = {
+#     "User-Agent": "ArchEvis/1.0",
+#     "x-hwid": DEVICE_HWID,
+#     "x-device-os": "Linux",
+#     "x-device-model": "PC"
+# }
+
 HEADERS = {
-    "User-Agent": "ArchEvis/1.0",
+    "User-Agent": f"{USER_NAME}/{DEVICE_OS}",
     "x-hwid": DEVICE_HWID,
-    "x-device-os": "Linux",
-    "x-device-model": "PC"
+    "x-device-os": DEVICE_OS,
+    "x-device-model": DEVICE_MODEL
 }
+print(HEADERS)
