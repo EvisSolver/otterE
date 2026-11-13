@@ -187,13 +187,13 @@ class Buttons_Click(Buttons_Connect):
 
         for text_theme, file_name in themes.items():
             item_theme = QTreeWidgetItem([self.tr(text_theme)])
-            item_theme.setData(0, Qt.ItemDataRole.UserRole, f"Theme:{file_name}")
+            item_theme.setData(0, Qt.ItemDataRole.UserRole, f"theme:{file_name}")
 
             theme.addChild(item_theme)
         
 
         language = QTreeWidgetItem([self.tr("Language")])
-        language.setData(0, Qt.ItemDataRole.UserRole, "Language")
+        language.setData(0, Qt.ItemDataRole.UserRole, "language")
 
         languages = {
             "English": "en",
@@ -214,44 +214,53 @@ class Buttons_Click(Buttons_Connect):
         self.tree.addTopLevelItem(sublink)
 
 # -- SETTINGS(IN)-BUTTONS --
-    def setting_clicked(self, item: str):
-        """setting-menu opening"""
-        text = item.text(0)
-        label = self.settings_window.ui.infoLabel
-
-        label.setWordWrap(True)
-        label.setAlignment(
-            Qt.AlignmentFlag.AlignLeft |
-            Qt.AlignmentFlag.AlignTop
+    def setting_clicked(self, item, column=0):
+        action = item.data(
+            0,
+            Qt.ItemDataRole.UserRole
         )
-            
-        if text == "Theme" and item.parent() is None:
-            self.settings_window.ui.infoLabel.setText('changing the "Theme" for your comfortable')
 
-        if text == "SubLink":
+        if action == "theme":
+            self.settings_window.ui.infoLabel.setText(
+                self.tr('Changing the "Theme"')
+            )
+            return
+
+        if action.startswith("theme:"):
+            file_name = action.split(
+                ":",
+                1
+            )[1]
+
+            self.set_theme(file_name)
+            return
+
+        if action == "language":
+            item.setExpanded(
+                not item.isExpanded()
+            )
+            return
+
+        if action.startswith("language:"):
+            code = action.split(
+                ":",
+                1
+            )[1]
+
+            self.set_language(code)
+            return
+
+        if action == "sublink":
             self.open_sublink()
 
-        theme_action = item.data(0, Qt.ItemDataRole.UserRole)
-        if isinstance(theme_action, str):
-            if theme_action.startswith("Theme:"):
-                file_name = theme_action.split(":", 1)[1]
-                self.set_theme(file_name)
-                return
-
-        action = item.data(0, Qt.ItemDataRole.UserRole)
-        if isinstance(action, str):
-            if action.startswith("language:"):
-                code = action.split(":", 1)[1].strip()
-                self.set_language(code)
-
 # --- SET LANG ---
-def set_language(self, code):
-    if not load_language(code): return
-    self.ui.retranslateUi(self)
-    if self.settings_window is not None:
-        self.settings_window.ui.retranslateUi(self.settings_window)
-        self.rebuild_settings_tree()
-    if self.get_sub_window is not None: self.get_sub_window.ui.retranslateUi(self.get_sub_window)
+    def set_language(self, code):
+        if not load_language(code): return
+        self.ui.retranslateUi(self)
+        if self.settings_window is not None:
+            self.settings_window.ui.retranslateUi(self.settings_window)
+            self.rebuild_settings_tree()
+        if self.get_sub_window is not None: self.get_sub_window.ui.retranslateUi(self.get_sub_window)
             
 # --- CLOSE-BUTTON ---
     def set_close_button(self):
