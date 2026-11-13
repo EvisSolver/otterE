@@ -4,22 +4,22 @@
 <context>
     <name>Buttons_Click</name>
     <message>
-        <location filename="../gui_/gui_buttons_click.py" line="134"/>
+        <location filename="../../gui_/gui_buttons_click.py" line="179"/>
         <source>Theme</source>
         <translation>Тема</translation>
     </message>
     <message>
-        <location filename="../gui_/gui_buttons_click.py" line="140"/>
+        <location filename="../../gui_/gui_buttons_click.py" line="195"/>
         <source>Language</source>
         <translation>Язык</translation>
     </message>
     <message>
-        <location filename="../gui_/gui_buttons_click.py" line="156"/>
+        <location filename="../../gui_/gui_buttons_click.py" line="209"/>
         <source>SubLink</source>
         <translation>Ввести ссылку</translation>
     </message>
     <message>
-        <location filename="../gui_/gui_buttons_click.py" line="218"/>
+        <location filename="../../gui_/gui_buttons_click.py" line="221"/>
         <source>Changing the &quot;Theme&quot;</source>
         <translation>меняю тему...</translation>
     </message>
@@ -27,29 +27,58 @@
 <context>
     <name>Form</name>
     <message>
-        <location filename="../gui_/get_sub.ui" line="14"/>
         <source>Get subscription</source>
         <translation>ввести свою ссылку</translation>
     </message>
     <message>
-        <location filename="../gui_/get_sub.ui" line="44"/>
         <source>Get</source>
         <translation>вставить</translation>
     </message>
     <message>
-        <location filename="../gui_/get_sub.ui" line="57"/>
         <source>Paste subscription link...</source>
         <translation>вставьте подписку(ссылку)</translation>
     </message>
     <message>
-        <location filename="../gui_/settings.ui" line="14"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../gui_/settings.ui" line="44"/>
         <source>$INFO</source>
         <translation>Описание</translation>
+    </message>
+</context>
+
+<context>
+    <name>MainWindow</name>
+
+    <message>
+        <source>MainWindow</source>
+        <translation>Главное окно</translation>
+    </message>
+
+    <message>
+        <source>$SERVER</source>
+        <translation>$СЕРВЕР</translation>
+    </message>
+
+    <message>
+        <source>server ???</source>
+        <translation>сервер ???</translation>
+    </message>
+
+    <message>
+        <source>IS NOT WORKING</source>
+        <translation>НЕ РАБОТАЕТ</translation>
+    </message>
+
+    <message>
+        <source>PROXY</source>
+        <translation>PROXY</translation>
+    </message>
+
+    <message>
+        <source>TUN</source>
+        <translation>TUN</translation>
     </message>
 </context>
 </TS>

@@ -203,7 +203,7 @@ class Buttons_Click(Buttons_Connect):
 
         for text, code in languages.items():
             item = QTreeWidgetItem([self.tr(text)])
-            item.setData(0, Qt.ItemDataRole.UserRole, f"language: {code}")
+            item.setData(0, Qt.ItemDataRole.UserRole, f"language:{code}")
             language.addChild(item)
 
         sublink = QTreeWidgetItem([self.tr("SubLink")])
@@ -215,37 +215,24 @@ class Buttons_Click(Buttons_Connect):
 
 # -- SETTINGS(IN)-BUTTONS --
     def setting_clicked(self, item, column=0):
-        action = item.data(
-            0,
-            Qt.ItemDataRole.UserRole
-        )
+        action = item.data(0,Qt.ItemDataRole.UserRole)
 
         if action == "theme":
-            self.settings_window.ui.infoLabel.setText(
-                self.tr('Changing the "Theme"')
-            )
+            self.settings_window.ui.infoLabel.setText(self.tr('Changing the "Theme"'))
             return
 
         if action.startswith("theme:"):
             file_name = action.split(
-                ":",
-                1
-            )[1]
-
+                ":", 1)[1]
             self.set_theme(file_name)
             return
 
         if action == "language":
-            item.setExpanded(
-                not item.isExpanded()
-            )
+            item.setExpanded(not item.isExpanded())
             return
 
         if action.startswith("language:"):
-            code = action.split(
-                ":",
-                1
-            )[1]
+            code = action.split(":", 1)[1]
 
             self.set_language(code)
             return
