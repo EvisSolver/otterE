@@ -12,7 +12,10 @@ else:
     DEVICE_HWID = str(uuid.uuid4())
     Write.Print(DEVICE_HWID, Colors.purple, interval = 0)
     HWID_FILE.write_text(DEVICE_HWID, encoding = "utf-8")
-DEVICE_HWID = HWID_FILE.read_text().strip()
+
+USER_NAME = getpass.getuser()
+DEVICE_OS = platform.system()
+DEVICE_MODEL = platform.machine()
 
 # Заголовки с твоей «подписью» для запроса
 HEADERS = {
