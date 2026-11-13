@@ -7,6 +7,8 @@ from PySide6.QtGui import QIcon
 from qasync import asyncSlot
 from pathlib import Path
 
+from languages_.change_lang import load_language
+
 from core import settings, subscription, xray, storage
 
 from sing_box_path import path_to_sing_jsons
@@ -235,6 +237,21 @@ class Buttons_Click(Buttons_Connect):
                 file_name = theme_action.split(":", 1)[1]
                 self.set_theme(file_name)
                 return
+
+        action = item.data(0, Qt.ItemDataRole.UserRole)
+        if isinstance(action, str):
+            if action.startswith("language:"):
+                code = action.split(":", 1)[1].strip()
+                self.set_language(code)
+
+# --- SET LANG ---
+def set_language(self, code):
+    if not load_language(code): return
+    self.ui.retranslateUi(self)
+    if self.settings_window is not None:
+        self.settings_window.ui.retranslateUi(self.settings_window)
+        self.rebuild_settings_tree()
+    if self.get_sub_window is not None: self.get_sub_window.ui.retranslateUi(self.get_sub_window)
             
 # --- CLOSE-BUTTON ---
     def set_close_button(self):
@@ -255,6 +272,7 @@ class Buttons_Click(Buttons_Connect):
             encoding = "utf-8"
         ) as file:
             QApplication.instance().setStyleSheet(file.read())
+
 
 # --- SET-BORDER-STATE ---
     def set_border_state(self, state):
