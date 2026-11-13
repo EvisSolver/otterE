@@ -1,4 +1,4 @@
-import uuid, getpass, platform
+import uuid
 from pathlib import Path
 
 from pystyle import Colors, Write
@@ -6,16 +6,15 @@ from pystyle import Colors, Write
 # Постоянный HWID устройства (генерируется один раз и сохраняется в файл)
 HWID_FILE = Path(".device_hwid")
 
-if HWID_FILE.exists():
-    DEVICE_HWID = HWID_FILE.read_text(encoding = "utf-8").strip()
-else:
-    DEVICE_HWID = str(uuid.uuid4())
-    Write.Print(DEVICE_HWID, Colors.purple, interval = 0)
-    HWID_FILE.write_text(DEVICE_HWID, encoding = "utf-8")
+def get_hwid():
+    try:
+        hwid = HWID_FILE.read_text(encoding = "utf-8").strip()
+    except FileNotFoundError: hwid = ""
 
-USER_NAME = getpass.getuser()
-DEVICE_OS = platform.system()
-DEVICE_MODEL = platform.machine()
+    if not bool(hwid):
+        hwid = str(uuid.uuid4())
+        HWID_FILE.write_text(hwid, encoding = "utf-8")
+    return hwid
 
 # Заголовки с твоей «подписью» для запроса
 # HEADERS = {
@@ -24,11 +23,3 @@ DEVICE_MODEL = platform.machine()
 #     "x-device-os": "Linux",
 #     "x-device-model": "PC"
 # }
-
-HEADERS = {
-    "User-Agent": f"{USER_NAME}/{DEVICE_OS}",
-    "x-hwid": DEVICE_HWID,
-    "x-device-os": DEVICE_OS,
-    "x-device-model": DEVICE_MODEL
-}
-print(HEADERS)

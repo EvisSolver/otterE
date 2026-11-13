@@ -1,4 +1,5 @@
-import requests, base64, emoji
+import uuid, getpass, platform # -- HWID
+import requests, base64, emoji # -- get_links
 
 from . import settings
 
@@ -6,7 +7,7 @@ from pystyle import Colors, Write
 from urllib.parse import unquote
 
 from .emoji_founder import get_emoji
-from .x_hwid import HEADERS
+from .x_hwid import get_hwid
 
 
 async def get_links() -> tuple[dict[str], str]:
@@ -15,6 +16,13 @@ async def get_links() -> tuple[dict[str], str]:
         counting servers
         splitting to n lists and returning the dict
     '''
+    D_HWID = get_hwid()
+    HEADERS = {
+    "User-Agent": f"{getpass.getuser()}/{platform.system()}",
+    "x-hwid": D_HWID,
+    "x-device-os": platform.system(),
+    "x-device-model": platform.machine()
+}
 
     servers_list = []
     server_ = {}
@@ -59,6 +67,7 @@ async def get_links() -> tuple[dict[str], str]:
                     "clean_link": server.split("#", 1)[0]
                 }
                 print(server_)
+        print(f"HWID Checked")
         return server_, total_servers
 
 
