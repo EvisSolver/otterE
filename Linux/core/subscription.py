@@ -1,4 +1,4 @@
-import uuid, getpass, platform # -- HWID
+import getpass, platform # -- HWID
 import requests, base64, emoji # -- get_links
 
 from . import settings
@@ -16,12 +16,12 @@ async def get_links() -> tuple[dict[str], str]:
         counting servers
         splitting to n lists and returning the dict
     '''
-    D_HWID = get_hwid()
+    D_HWID = get_hwid() # -- Get Current HWID or Rewriting(IF NONE(Like first-open))
     HEADERS = {
-    "User-Agent": f"{getpass.getuser()}/{platform.system()}",
-    "x-hwid": D_HWID,
-    "x-device-os": platform.system(),
-    "x-device-model": platform.machine()
+    "User-Agent": f"{getpass.getuser()}/{platform.system()}", # -- OS User & OS Type | For Example: EvisSolver/Linux
+    "x-hwid": D_HWID, # -- One-time D_HWID(until the Delete/Cleard .device_hwid)
+    "x-device-os": platform.system(), # -- OS
+    "x-device-model": platform.machine() # -- Model | For Example: x86_64
 }
 
     servers_list = []
@@ -79,7 +79,7 @@ async def get_clean_link(server_links: dict) -> dict[all[str]]:
     clean_servers_list = []
     server_id = 0
 
-    for _, server in server_links.items():
+    for _, server in server_links.items(): # -- Gets Server-item's
         emoji_, name, link = await get_emoji(
             server["name"],
             server["link"],
@@ -88,11 +88,12 @@ async def get_clean_link(server_links: dict) -> dict[all[str]]:
 
         server_id += 1
 
+# --- Dict with already ready Value's ---
         clean_servers_dict = {
-            "server_id": server_id,
-            "server_flag": emoji_,
-            "server_name": name,
-            "server_link": link
+            "server_id": server_id, # -- Server id's(Dict's) | Every id - each server
+            "server_flag": emoji_, # -- Flag's
+            "server_name": name, # -- Server Name's
+            "server_link": link # -- Server Link's
         }
         clean_servers_list.append(clean_servers_dict)
         print(clean_servers_dict["server_link"])
