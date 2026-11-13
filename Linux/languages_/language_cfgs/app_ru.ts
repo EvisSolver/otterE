@@ -21,22 +21,22 @@
     <message>
         <location filename="../../gui_/gui_buttons_click.py" line="221"/>
         <source>Changing the &quot;Theme&quot;</source>
-        <translation>меняю тему...</translation>
+        <translation>Меняет тему</translation>
     </message>
 </context>
 <context>
     <name>Form</name>
     <message>
-        <source>Get subscription</source>
-        <translation>ввести свою ссылку</translation>
+        <source>PushButton</source>
+        <translation>Ввести</translation>
     </message>
     <message>
-        <source>Get</source>
-        <translation>вставить</translation>
+        <source>PushButton</source>
+        <translation>Вставить</translation>
     </message>
     <message>
         <source>Paste subscription link...</source>
-        <translation>вставьте подписку(ссылку)</translation>
+        <translation>Вставьте подписку(ссылку)</translation>
     </message>
     <message>
         <source>Settings</source>

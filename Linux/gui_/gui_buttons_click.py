@@ -8,8 +8,10 @@ from qasync import asyncSlot
 from pathlib import Path
 
 from languages_.change_lang import load_language
+from load_local_servers_ import fill_server_list
 
 from core import settings, subscription, xray, storage
+
 
 from sing_box_path import path_to_sing_jsons
 from .settings_window import SettingsWindow
@@ -244,6 +246,7 @@ class Buttons_Click(Buttons_Connect):
     def set_language(self, code):
         if not load_language(code): return
         self.ui.retranslateUi(self)
+        self.set_close_button()
         if self.settings_window is not None:
             self.settings_window.ui.retranslateUi(self.settings_window)
             self.rebuild_settings_tree()
